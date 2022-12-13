@@ -10,11 +10,14 @@
       <v-btn text @click="scroll('about')">About</v-btn>
       <v-btn text @click="scroll('contact')">Contact</v-btn>
       <v-btn text @click="scroll('services')">Services</v-btn>
-      <v-btn text @click="scroll('contact')">Create Account</v-btn>
+      <v-btn text @click="$router.push('Register')">Create Account</v-btn>
+      
     </v-app-bar>
   </template>
   
   <script>
+ 
+
   export default {
     methods: {
       scroll(refName) {
