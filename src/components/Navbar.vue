@@ -6,7 +6,7 @@
       </v-btn>
   
       <v-spacer></v-spacer>
-      <v-btn text @click="scroll('home')">Home</v-btn>
+      <v-btn text @click="$router.push('Home')">Home</v-btn>
       <v-btn text @click="scroll('about')">About</v-btn>
       <v-btn text @click="scroll('contact')">Contact</v-btn>
       <v-btn text @click="scroll('services')">Services</v-btn>
