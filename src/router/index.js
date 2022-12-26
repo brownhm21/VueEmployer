@@ -7,7 +7,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/home',
+    path: '/',
     name: 'home',
     component: HomeView
   },
@@ -27,11 +27,9 @@ const routes = [
   },
   {
     path: "/dashboard",
-    name: "Dashboard",
-    component: Dashboard,
-    meta: {
-      requiresAuth: true
-    }
+    name: "dashboard",
+    component: () => import(/* webpackChunkName: "about" */ '../views/Dashboard.vue')
+    
   }
   
 ]
