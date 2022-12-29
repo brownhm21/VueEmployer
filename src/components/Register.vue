@@ -1,12 +1,14 @@
 <template>
   <v-app :style="{ background: $vuetify.theme.themes.dark.background }">
+    <v-snackbar v-model="snackbar" :timeout="4000" top color="error">
+      <span>{{snackbarText}}</span>
+      <v-btn flat color="white" @click="snackbar = false">Close</v-btn>
+    </v-snackbar>
     <Navbar />
-      <v-container class="fill-height" fluid>
-        <v-row :align="center" justify="center">
-          <v-img :src="require('../assets/4pic.jpg')" contain max-height="100%">
-          <v-col cols="12" sm="8" md="8" class="w-25 p-3" style="height: 10%;
-          margin-top: 5%;
-          margin-left: 5%;">
+    <v-container class="fill-height" fluid>
+      <v-row :align="center" justify="center">
+        <v-img :src="require('../assets/4pic.jpg')" contain max-height="100%">
+          <v-col cols="12" sm="8" md="8" class="w-25 p-3" style="height: 10%; margin-top: 5%;  margin-left: 5%;">
             <v-card class="elevation-12 rounded-xl">
               <v-window v-model="step">
                 <v-window-item :value="1">
@@ -26,51 +28,38 @@
                             <v-icon>fab fa-linkedin-in</v-icon>
                           </v-btn>
                         </div>
-                        <h4 class="text-center mt-4">Ensure your email for registration</h4>
-                        <v-form ref="form" @submit.prevent="submit" lazy-validation v-model="valid">
-                          
+                        <h4 class="text-center mt-4">Ensure your email for Login</h4>
+                        <v-form ref="formLogin1" @submit.prevent="login" lazy-validation>
 
-    <v-text-field
-    :label="labels.email"
-      v-model="form.email"
-      type="email"
-      :error-messages="errors.email"
-      :rules="email_Rules"
-      :disabled="loading"
-      @input="clearErrors('email')"
-            prepend-icon="mdi-mail"
-    ></v-text-field>
 
-    <v-text-field
-    :label="labels.password"
-      v-model="form.password"
-      :append-icon="passwordHidden ? 'visibility_off' : 'visibility'"
-      @click:append="() => (passwordHidden = !passwordHidden)"
-      :type="passwordHidden ? 'password' : 'text'"
-      :error-messages="errors.password"
-      :disabled="loading"
-      :rules="pwdRules"
-      hint="At least 6 characters"
-      @input="clearErrors('password')"
-            prepend-icon="mdi-lock"
-            
-    ></v-text-field>
+                          <v-text-field :label="labels.email" v-model="formLogin.email" type="email"
+                            :error-messages="errors.email" :rules="email_Rules" :disabled="loading"
+                            @input="clearErrors('email')" prepend-icon="mdi-mail"></v-text-field>
 
-    
+                          <v-text-field :label="labels.password" v-model="formLogin.password"
+                            :append-icon="passwordHidden ? 'visibility_off' : 'visibility'"
+                            @click:append="() => (passwordHidden = !passwordHidden)"
+                            :type="passwordHidden ? 'password' : 'text'" :error-messages="errors.password"
+                            :disabled="loading" :rules="pwdRules" hint="At least 6 characters"
+                            @input="clearErrors('password')" prepend-icon="mdi-lock"></v-text-field>
+
+
+                          <div class="text-center mt-3" style="padding: 10%;">
+                            <v-btn rounded color="teal accent-3" dark type="submit" :loading="loading"
+                              :disabled="loading">SIGN IN</v-btn>
+                          </div>
+
+
 
                         </v-form>
                         <h3 class="text-center mt-4">Forgot your password ?</h3>
                       </v-card-text>
-                      <div class="text-center mt-3" style="padding: 10%;">
-                        <v-btn rounded color="teal accent-3" dark>SIGN IN</v-btn>
-                      </div>
+
                     </v-col>
                     <v-col cols="12" md="4" class="teal accent-3">
                       <v-card-text class="white--text mt-12">
                         <h1 class="text-center display-1">Hello, Friend!</h1>
-                        <h5
-                          class="text-center"
-                        >Enter your personal details and start journay with us</h5>
+                        <h5 class="text-center">Enter your personal details and start journay with us</h5>
                       </v-card-text>
                       <div class="text-center">
                         <v-btn rounded outlined dark @click="step++">SIGN UP</v-btn>
@@ -83,9 +72,7 @@
                     <v-col cols="12" md="4" class="teal accent-3">
                       <v-card-text class="white--text mt-12">
                         <h1 class="text-center display-1">Welcome Back!</h1>
-                        <h5
-                          class="text-center"
-                        >To Keep connected with us please login with your personnel info</h5>
+                        <h5 class="text-center">To Keep connected with us please login with your personnel info</h5>
                       </v-card-text>
                       <div class="text-center">
                         <v-btn rounded outlined dark @click="step--">Sign in</v-btn>
@@ -109,75 +96,50 @@
                         </div>
                         <h4 class="text-center mt-4">Ensure your email for registration</h4>
                         <v-form ref="form" @submit.prevent="submit" lazy-validation v-model="valid">
-                          <v-text-field
-    :label="labels.name"
-      v-model="form.name"
-      :error-messages="errors.name"
-      :rules="[rules.required('name')]"
-      :disabled="loading"
-      @input="clearErrors('name')"
-            prepend-icon="mdi-account-circle"
-    ></v-text-field>
+                          <v-text-field :label="labels.name" v-model="form.name" :error-messages="errors.name"
+                            :rules="[rules.required('name')]" :disabled="loading" @input="clearErrors('name')"
+                            prepend-icon="mdi-account-circle"></v-text-field>
 
-    <v-text-field
-    :label="labels.email"
-      v-model="form.email"
-      type="email"
-      :error-messages="errors.email"
-      :rules="email_Rules"
-      :disabled="loading"
-      @input="clearErrors('email')"
-            prepend-icon="mdi-mail"
-    ></v-text-field>
+                          <v-text-field :label="labels.email" v-model="form.email" type="email"
+                            :error-messages="errors.email" :rules="email_Rules" :disabled="loading"
+                            @input="clearErrors('email')" prepend-icon="mdi-mail"></v-text-field>
 
-    <v-text-field
-    :label="labels.password"
-      v-model="form.password"
-      :append-icon="passwordHidden ? 'visibility_off' : 'visibility'"
-      @click:append="() => (passwordHidden = !passwordHidden)"
-      :type="passwordHidden ? 'password' : 'text'"
-      :error-messages="errors.password"
-      :disabled="loading"
-      :rules="pwdRules"
-      hint="At least 6 characters"
-      @input="clearErrors('password')"
-            prepend-icon="mdi-lock"
-            
-    ></v-text-field>
+                          <v-text-field :label="labels.password" v-model="form.password"
+                            :append-icon="passwordHidden ? 'visibility_off' : 'visibility'"
+                            @click:append="() => (passwordHidden = !passwordHidden)"
+                            :type="passwordHidden ? 'password' : 'text'" :error-messages="errors.password"
+                            :disabled="loading" :rules="pwdRules" hint="At least 6 characters"
+                            @input="clearErrors('password')" prepend-icon="mdi-lock"></v-text-field>
 
-    <v-text-field
-      :label="labels.confirmpassword"
-      v-model="form.confirmpassword"
-      :type="passwordHidden ? 'password' : 'text'"
-      :error-messages="errors.confirmpassword"
-      :disabled="loading"
-      :rules="password_ConfirmationRules"
-      @input="clearErrors('password')"
-            prepend-icon="mdi-lock"
-            
-    ></v-text-field>
-    <v-spacer></v-spacer>
-    <div class="text-center mt-n5"  style="padding: 5%; display: flex; justify-content: space-between;">
-                        <v-btn rounded color="teal accent-3" dark  type="submit" :loading="loading" :disabled="loading || !valid">SIGN UP</v-btn>
-                        <v-btn  text :disabled="loading" @click="step--" rounded color="grey darken-2" exact >Back to login</v-btn>
-                      </div>
-
+                          <v-text-field :label="labels.confirmpassword" v-model="form.confirmpassword"
+                            :type="passwordHidden ? 'password' : 'text'" :error-messages="errors.confirmpassword"
+                            :disabled="loading" :rules="password_ConfirmationRules" @input="clearErrors('password')"
+                            prepend-icon="mdi-lock"></v-text-field>
+                          <v-spacer></v-spacer>
+                          <div class="text-center mt-n5"
+                            style="padding: 5%; display: flex; justify-content: space-between;">
+                            <v-btn rounded color="teal accent-3" dark type="submit" :loading="loading"
+                              :disabled="loading || !valid">SIGN UP</v-btn>
+                            <v-btn text :disabled="loading" @click="step--" rounded color="grey darken-2" exact>Back to
+                              login</v-btn>
+                          </div>
+                          {{ error }}
                         </v-form>
                       </v-card-text>
-                      
+
 
                       <v-divider></v-divider>
-            
-                                <v-card-text class="d-flex align-center justify-center flex-wrap mt-2">
-                                    <span class="me-2">Already have an account?</span>
-                                    <a>Sign in instead</a>
-                                    
-                                </v-card-text>
-                                <v-card-text class="v-card__text d-flex align-center mt-2">
-                                    <v-divider role="separator" aria-orientation="horizontal" class="theme--light"></v-divider>
-                                    <span class="mx-5">or</span>
-                                    <v-divider role="separator" aria-orientation="horizontal" class="theme--light"></v-divider>
-                                </v-card-text>
+
+                      <v-card-text class="d-flex align-center justify-center flex-wrap mt-2">
+                        <span class="me-2">Already have an account?</span>
+                        <a>Sign in instead</a>
+
+                      </v-card-text>
+                      <v-card-text class="v-card__text d-flex align-center mt-2">
+                        <v-divider role="separator" aria-orientation="horizontal" class="theme--light"></v-divider>
+                        <span class="mx-5">or</span>
+                        <v-divider role="separator" aria-orientation="horizontal" class="theme--light"></v-divider>
+                      </v-card-text>
 
 
                     </v-col>
@@ -187,9 +149,9 @@
             </v-card>
           </v-col>
         </v-img>
-        </v-row>
-      </v-container>
-      <Footer />
+      </v-row>
+    </v-container>
+    <Footer />
   </v-app>
 </template>
 
@@ -200,14 +162,15 @@ import axios from 'axios';
 
 import Form from '@/mixins/form';
 
+
 import { validationMixin } from "vuelidate";
 import { required, minLength, email, sameAs } from "vuelidate/lib/validators";
 
 export default {
-name: "app-register",
-mixins: [validationMixin,Form],
+  name: "app-register",
+  mixins: [validationMixin, Form],
 
-validations: {
+  validations: {
     name: { required, minLength: minLength(4) },
     email: { required, email },
     password: { required, minLength: minLength(6) },
@@ -215,17 +178,25 @@ validations: {
   },
 
   data: () => ({
+    snackbar: false,
+      snackbarText: '',
     passwordHidden: true,
+    error: '',
     step: 1,
-      pwdRules: [v => !!v || "Password required"],
-      pwdConfirm: [
-        v => !!v || "Confirm password",
-        v => v === this.password || "Passwords do not match"  ],
+    pwdRules: [v => !!v || "Password required"],
+    pwdConfirm: [
+      v => !!v || "Confirm password",
+      v => v === this.password || "Passwords do not match"],
     form: {
       name: null,
       email: null,
       password: null,
       confirmpassword: null
+    },
+    formLogin: {
+      email: null,
+      password: null,
+
     }
   }),
 
@@ -233,8 +204,8 @@ validations: {
     source: String
   },
 
- 
-components: {
+
+  components: {
     Navbar,
     Footer,
   },
@@ -242,23 +213,69 @@ components: {
     submit() {
       if (this.$refs.form.validate()) {
         //this.loading = true;
-        console.log('object',this.form);
-        axios.post('http://localhost:3000/api/user/register', this.form )
-          .then( (response) => {
-    console.log(response.data);
-    
-            this.$toast.success('You have been successfully registered!');
-            this.$emit('success', res.data);
-            
+        console.log('object', this.form);
+        axios.post('http://localhost:3000/api/user/register', this.form)
+          .then((response) => {
+            console.log(response.data);
+
+            this.$toast.success('You have been successfully registered!')
+            this.$emit('success', response.data);
+            /*localStorage.setItem("accessToken",response.data)*/
+            this.$router.push({ name: "dashboard" })
+            this.error = '';
+
           })
           .catch(err => {
-            this.handleErrors(err.response.data.errors)
+            /*this.handleErrors(err.response.data.errors)
+            console.log(err.response)
+            this.error = err.response.data.error*/
+             // Handle Errors here.
+          var errorMessage = error.message;
+          this.loading = false;
+          if (errorMessage.length > 0) {
+            this.snackbarText = errorMessage;
+            this.snackbar = true;
+          }
           })
           .then(() => {
             this.loading = false
           })
       }
     },
+
+    login() {
+      if (this.$refs.formLogin1.validate()) {
+       
+        this.loading = true;
+        console.log('object', this.formLogin);
+        axios.post('http://localhost:3000/api/user/login', this.formLogin)
+          .then((response) => {
+            console.log(response.data);
+            //this.$cookie.set('token',res.data.token);
+
+            /*this.$toast.success('You have been successfully registered!')
+            /*this.$emit('success', response.data);*/
+           localStorage.setItem("accessToken",response.data.token)
+           localStorage.setItem("user",JSON.stringify(response.data.user))
+
+            this.$router.push("/dashboard");
+            this.error = '';
+
+          })
+          .catch(err => {
+            /*this.handleErrors(err.response.data.errors)
+            console.log(err.response)
+            this.error = err.response.data.error*/
+            this.loading = false;
+            this.snackbarText = error;
+            this.snackbar = true;
+          })
+          .then(() => {
+            this.loading = false
+          })
+      }
+
+    }
   },
   computed: {
     nameErrors() {
@@ -297,17 +314,18 @@ components: {
         v => !!v || 'Confirmation password is required'
       ];
     },
-    email_Rules(){
+    email_Rules() {
       return [
-             (v) => !!v || 'E-mail is required',
-             (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
-        ];
+        (v) => !!v || 'E-mail is required',
+        (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
+      ];
     }
 
   },
-  
+
 }
 </script>
 
 <style lang="css" scoped>
+
 </style>

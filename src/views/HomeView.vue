@@ -13,9 +13,11 @@
               <v-card-title class="ml-10 mt-n8">
                 <h2 class="title2">Daily Ressources</h2>
               </v-card-title>
+             <!----
               <v-card-text class="ml-10">
                 <h3 class="green--text">#Free Delivery</h3>
               </v-card-text>
+              ---> 
               <v-card-text class="ml-10">
                 <v-row>
                   <v-col cols="4">
