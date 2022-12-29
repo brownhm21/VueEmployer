@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import Dashboard from "../views/Dashboard.vue";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
@@ -16,6 +16,11 @@ const routes = [
     path: '/Register',
     name: 'Register',
     component: () => import(/* webpackChunkName: "Register" */ '../components/Register.vue')
+  },
+  {
+    path: '/CompanyForm',
+    name: 'CompanyForm',
+    component: () => import(/* webpackChunkName: "Register" */ '../components/companyForm.vue')
   },
   {
     path: '/about',
