@@ -45,7 +45,7 @@
 
           { title: "Dashboard", icon: "mdi-microsoft-windows" ,action: "Dashboard"},
           { title: "Profile", icon: "mdi-account" ,action: "company"},
-          { title: "Notes", icon: "mdi-microsoft-windows" ,action: "Notes"},
+          { title: "Notes", icon: "mdi-pen" ,action: "Notes"},
           { title: "Employers", icon: "mdi-card-account-details-outline" ,action: "Employers"},
           { title: "System", icon: "mdi-cog" ,action: "Notes"},
           
