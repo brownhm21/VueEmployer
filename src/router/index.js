@@ -23,9 +23,24 @@ const routes = [
     component: () => import(/* webpackChunkName: "Register" */ '../components/companyForm.vue')
   },
   {
+    path: '/CompanyInfos',
+    name: 'CompanyInfos',
+    component: () => import(/* webpackChunkName: "Register" */ '../components/CompanyInfos.vue')
+  },
+  {
     path: '/CompanyAdd',
     name: 'CompanyAdd',
     component: () => import(/* webpackChunkName: "Register" */ '../components/CompanyAdd.vue')
+  },
+  {
+    path: '/CompanyEdit',
+    name: 'CompanyEdit',
+    component: () => import(/* webpackChunkName: "Register" */ '../components/CompanyEdit.vue')
+  },
+  {
+    path: '/employerAdd',
+    name: 'employerAdd',
+    component: () => import(/* webpackChunkName: "Register" */ '../components/employerAdd.vue')
   },
   {
     path: '/about',

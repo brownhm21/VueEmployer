@@ -44,13 +44,18 @@
                             <v-tab href="#Infos">Infos</v-tab>
 
                             <v-tab-item value="Infos">
+                                <CompanyInfos />
+                            </v-tab-item>
+                            <v-tab href="#Add">Add</v-tab>
+
+                            <v-tab-item value="Add">
                                 <CompanyAdd />
                             </v-tab-item>
 
                             <v-tab href="#Edit">Edit</v-tab>
 
                             <v-tab-item value="Edit">
-                                <CompanyAdd />
+                                <CompanyEdit />
                             </v-tab-item>
 
                             
@@ -75,7 +80,9 @@
 <script>
 import Sidebar from "@/components/Sidebar.vue";
 import Topbar from "@/components/Topbar.vue";
+import CompanyInfos from "@/components/CompanyInfos.vue";
 import CompanyAdd from "@/components/CompanyAdd.vue";
+import CompanyEdit from "@/components/CompanyEdit.vue";
 
 export default {
     name: 'companyForm',
@@ -99,7 +106,11 @@ export default {
     components: {
         Topbar,
         Sidebar,
-        CompanyAdd
+        CompanyEdit,
+        CompanyAdd,
+        CompanyInfos
+        
+
     }
 };
 </script>
