@@ -2,8 +2,8 @@
   <v-app id="inspire">
     <Sidebar :drawer="drawer" />
     <Topbar @drawerEvent="drawer = !drawer" />
-    <v-main style="background: #f5f5f540">
-      <v-container class="py-8 px-6" fluid>
+    <v-main class="py-8 px-6" fluid style="background: #f5f5f540">
+      <v-container >
         <div class="dashboard">
       <v-subheader class="py-0 d-flex justify-space-between rounded-lg">
           <h3>Dashboard</h3>

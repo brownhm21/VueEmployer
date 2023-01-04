@@ -218,7 +218,7 @@ export default {
           .then((response) => {
             console.log(response.data);
 
-            this.$toast.success('You have been successfully registered!')
+            /*this.$toast.success('You have been successfully registered!')
             this.$emit('success', response.data);
             /*localStorage.setItem("accessToken",response.data)*/
             this.$router.push({ name: "dashboard" })

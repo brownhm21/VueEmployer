@@ -13,7 +13,7 @@
                <v-col cols="4" >
                   <v-text-field
                      label="Company Name"
-                     v-model="formData.CompanyName"
+                     v-model="formData.companyName"
                      outlined
                      prepend-inner-icon="mdi-bank"
                      :rules="requiredRules"/>
@@ -24,7 +24,7 @@
                <v-col cols="4" >
                   <v-text-field
                      label="E-Mail"
-                     v-model="formData.email"
+                     v-model="formData.companyEmail"
                      outlined
                      :rules="emailRules"
                      prepend-inner-icon="mdi-email-outline" />
@@ -42,7 +42,7 @@
                <v-col cols="12" >
                   <v-text-field
                      label="Address"
-                     v-model="formData.address"
+                     v-model="formData.companyAdress"
                      outlined
                      
                      :rules="requiredRules"
@@ -52,7 +52,7 @@
                <v-col cols="6" >
                   <v-text-field
                      label="City"
-                     v-model="formData.city"
+                     v-model="formData.companyCity"
                      outlined
                     
                      :rules="requiredRules"
@@ -89,7 +89,7 @@
   </template>
   
   <script>
- 
+ import axios from 'axios';
   
   export default {
     name: "add-tutorial",
@@ -98,12 +98,13 @@
     calenderModal: false,
     formLoading: false,
     formData: {
-      CompanyName:'',
-      email:'',
+      companyName:'',
+      companyEmail:'',
       phoneNumber:'',
-      address:'',
-      city:'',
+      companyAdress:'',
+      companyCity:'',
       zipcode:'',
+      createdBy:(JSON.parse(localStorage.getItem("user"))._id) ? {"_id":JSON.parse(localStorage.getItem("user"))._id} : null
 
 
     },
@@ -121,52 +122,38 @@
     ]
   }),
   methods: {
-    deleteRow(index) {
-      this.formData.jobs.splice([index], 1);
-    },
-    addRow() {
-      this.formData.jobs.push({});
-    },
-    moveUp(index) {
-      let temp1 = this.formData.jobs[index];
-      let temp2 = this.formData.jobs[index - 1];
-      this.$set(this.formData.jobs, index, temp2);
-      this.$set(this.formData.jobs, index - 1, temp1);
-    },
-    moveDown(index) {
-      let temp1 = this.formData.jobs[index];
-      let temp2 = this.formData.jobs[index + 1];
-      this.$set(this.formData.jobs, index, temp2);
-      this.$set(this.formData.jobs, index + 1, temp1);
-    },
+   
+    
     validate() {
       if (this.$refs.form.validate()) {
-        console.log("submit");
-        this.formLoading = true;
-        // Timeout Function only for showing loading progress
-        console.log('OBJECT',this.formData);
-        /*setTimeout(() => {
-          alert(JSON.stringify(this.formData));
-          this.formLoading = false;
-          console.log(this.formData);
-          this.reset();
-        }, 4000);*/
+        //this.loading = true;
+        console.log('object', this.formData);
+        axios.post('http://localhost:3000/api/company/registerCompany', this.formData)
+          .then((response) => {
+            console.log(response.data);
+
+            this.$toast.success('You have been successfully registered!')
+            this.$emit('success', response.data);
+        
+          
+
+          })
+          .catch(err => {
+        console.log('error');
+          })
+          .then(() => {
+            this.loading = false
+          })
       }
     },
-    validateDate(dateRange, index) {
-      if (dateRange.length === 2) {
-        this.calenderModal = false;
-      }
-    },
+    
     reset() {
       this.$refs.form.reset();
     },
     resetValidation() {
       this.$refs.form.resetValidation();
     },
-    darkMode() {
-      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
-    }
+    
   },
   computed: {
     theme() {

@@ -14,8 +14,18 @@ export default new Vuetify({
     theme: {
         themes: {
             dark: {
-                background: '#111111'
-            }
+                background: '#111111',
+                primary: "#82b19f",
+                formBackground: "#23272b"
+            },
+            light: {
+                primary: "#82b19f",
+                secondary: "#f4bf1c",
+                accent: "#47333c",
+                error: "#dc6276",
+                background: "#F6F5F4",
+                formBackground: "#f7f7f7"
+            },
         }
     }
 });
