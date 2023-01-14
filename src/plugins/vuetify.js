@@ -19,9 +19,9 @@ export default new Vuetify({
                 formBackground: "#23272b"
             },
             light: {
-                primary: "#82b19f",
-                secondary: "#f4bf1c",
-                accent: "#47333c",
+                primary: "#119DA4",
+                secondary: "#171b34",
+                accent: "#3D87E4",
                 error: "#dc6276",
                 background: "#F6F5F4",
                 formBackground: "#f7f7f7"
