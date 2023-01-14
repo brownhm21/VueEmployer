@@ -6,7 +6,7 @@
         <v-file-input
           show-size
           label="Select Image"
-          accept="image/*"
+          type="file"
           @change="selectImage"
         ></v-file-input>
       </v-col>
@@ -38,23 +38,15 @@
       {{ message }}
     </v-alert>
 
-    <v-card v-if="imageInfos.length > 0" class="mx-auto">
-      <v-list>
-        <v-subheader>List of Images</v-subheader>
-        <v-list-item-group color="primary">
-          <v-list-item v-for="(image, index) in imageInfos" :key="index">
-            <a :href="image.url">{{ image.name }}</a>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
-    </v-card>
+    
    </v-container>
  
 
 </template>
 
 <script>
-
+import UploadService from "../services/UploadFilesService";
+import axios from 'axios';
 
 export default {
   name: "upload-image",
@@ -66,15 +58,16 @@ export default {
       progress: 0,
       message: "",
 
-      imageInfos: []
+      imageInfos: "",
     };
   },
   methods: {
-    selectImage(image) {
-      this.currentImage = image;
+    selectImage(file) {
+      this.currentImage = file;
       this.previewImage = URL.createObjectURL(this.currentImage);
       this.progress = 0;
       this.message = "";
+     
     },
     upload() {
       if (!this.currentImage) {
@@ -84,15 +77,16 @@ export default {
 
       this.progress = 0;
 
-      UploadService.upload(this.currentImage, (event) => {
+      const formData = new FormData();
+      formData.append("file", this.currentImage);
+
+      axios.post("http://localhost:3000/api/image-upload",this.formData, (event) => {
         this.progress = Math.round((100 * event.loaded) / event.total);
       })
         .then((response) => {
           this.message = response.data.message;
-          return UploadService.getFiles();
-        })
-        .then((images) => {
-          this.imageInfos = images.data;
+          console.log(response);
+          
         })
         .catch((err) => {
           this.progress = 0;
@@ -102,10 +96,6 @@ export default {
     },
   
   },
-  mounted() {
-    UploadService.getFiles().then(response => {
-      this.imageInfos = response.data;
-    });
-  }
+  
 };
 </script>

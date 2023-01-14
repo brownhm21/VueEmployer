@@ -1,63 +1,60 @@
 <template>
-    <v-footer dark padless>
-      <v-card
-        flat
-        tile
-        class="black white--text py-5 px-5 text-center"
-        width="100%"
-      >
-        <v-row>
-          <v-col cols="12" sm="4">
-            <v-card-text class="white--text pt-2">
-              <v-btn icon>
-                <v-icon color="#75E6DA">fa-solid fa-people-line</v-icon>
-              </v-btn>
-            </v-card-text>
-          </v-col>
+  <v-footer dark padless>
+    <v-card flat tile class="secondary white--text text-center">
+      <v-card-text>
+        <v-btn
+          v-for="(icon, i) in icons"
+          :key="i"
+          class="mx-4 white--text"
+          :href="icon.link"
+          target="_blank"
+          icon
+        >
+          <v-icon size="24px">{{ icon.text }}</v-icon>
+        </v-btn>
+      </v-card-text>
 
-         
-          <v-col cols="12" sm="4">
-            <v-card-text class="white--text pt-2">
-              <v-btn icon>
-                <v-icon color="#75E6DA">fa-solid fa-people-line</v-icon>
-              </v-btn>
-            </v-card-text>
-          </v-col>
+      <v-card-text class="white--text pt-0">
+        Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit amet.
+        Mauris cursus commodo interdum.
+      </v-card-text>
 
-          
-  
-          
-          
+      <v-divider></v-divider>
 
-          <v-col cols="12" sm="4">
-            <v-card-text class="pt-2">
-              <v-btn class="mx-1 white--text" icon>
-                <v-icon color="#A7121D">mdi-heart</v-icon>
-              </v-btn>
-              Created by Browny & Saif
-            </v-card-text>
-          </v-col>
-        </v-row>
-      </v-card>
+      <v-card-text class="white--text">
+        {{ new Date().getFullYear() }} — <strong>Employerella WEB</strong>
+      </v-card-text>
+    </v-card>
+  </v-footer>
+</template>
 
-      <v-row
-      justify="center"
-      no-gutters
-    >
-     
-      <v-col
-        class="teal accent-4 py-4 text-center white--text"
-        cols="12"
-      >
-        {{ new Date().getFullYear() }} — <strong>Browny & Saif</strong>
-      </v-col>
-    </v-row>
-    </v-footer>
-  </template>
-  
-  <script>
-  export default {};
-  </script>
-  
-  <style>
-  </style>
+<style scoped>
+.v-card {
+  width: 100%;
+}
+</style>
+
+<script>
+export default {
+  data: () => ({
+    icons: [
+      {
+        text: "mdi-facebook",
+        link: "",
+      },
+      {
+        text: "mdi-twitter",
+        link: "",
+      },
+      {
+        text: "mdi-linkedin",
+        link: "",
+      },
+      {
+        text: "mdi-instagram",
+        link: "https://instagram.com/joabson_arley/",
+      },
+    ],
+  }),
+};
+</script>

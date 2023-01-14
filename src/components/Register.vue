@@ -1,10 +1,11 @@
 <template>
+  
   <v-app :style="{ background: $vuetify.theme.themes.dark.background }">
     <v-snackbar v-model="snackbar" :timeout="4000" top color="error">
       <span>{{snackbarText}}</span>
       <v-btn flat color="white" @click="snackbar = false">Close</v-btn>
     </v-snackbar>
-    <Navbar />
+    <navigation :color="color" :flat="flat" />
     <v-container class="fill-height" fluid>
       <v-row :align="center" justify="center">
         <v-img :src="require('../assets/4pic.jpg')" contain max-height="100%">
@@ -156,6 +157,7 @@
 </template>
 
 <script>
+import navigation from "@/components/Navigation.vue";
 import Navbar from '@/components/Navbar.vue';
 import Footer from '@/components/Footer.vue';
 import axios from 'axios';
