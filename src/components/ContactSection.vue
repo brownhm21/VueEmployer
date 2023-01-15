@@ -7,18 +7,17 @@
               <v-col cols="12" sm="5">
                 <h1 class="font-weight-light display-1">Contact Us</h1>
                 <h3 class="font-weight-light mt-3">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste
-                  explicabo commodi quisquam asperiores dolore ad enim provident
-                  veniam perferendis voluptate, perspiciatis.
+                  Whether you’re stuck or just want some tips on where to start, hit up our experts anytime.
                 </h3>
                 <h3 class="font-weight-light mt-3">
-                  Lorem ipsum dolor sit amet consectetur adipisicing.
+                  Check our details informations and contact Us or send Us Mail 
+                  we're waiting ....
                 </h3>
                 <h3 class="font-weight-light mt-3">
-                  Phone Number: +(212) x-xxxx-xxxxx
+                  Phone Number: +(212) 604 44 06 84
                 </h3>
                 <h3 class="font-weight-light">
-                  Email: email@email.com
+                  Email: Browny@servicesmail.com
                 </h3>
               </v-col>
               <v-col cols="12" sm="7">

@@ -73,7 +73,7 @@
                             <div class="headline">Jobs</div>
                         </v-col>
                     </v-row>
-                    <v-btn @click="addRow" small text color="primary" class="ml-2">
+                    <v-btn @click="addRow" small text color="primary" class="ml-2" disabled>
                         <v-icon>mdi-briefcase-plus</v-icon>
                         <span>add</span>
                     </v-btn>
@@ -93,7 +93,7 @@
                      prepend-icon="mdi-domain" />
                </v-col>
                         
-                        <v-col cols="12" md="4">
+                        <v-col cols="12" md="4" v-if="job.position === 'Trainee'">
                             <v-dialog ref="dialog" v-model="calenderModal" persistent width="290px">
                                 <template v-slot:activator="{ on, attrs }">
                                     <v-text-field v-model="job.dateRange" label="Employment period"

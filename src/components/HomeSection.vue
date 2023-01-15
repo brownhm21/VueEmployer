@@ -5,11 +5,11 @@
           <v-col cols="10">
             <v-row align="center" justify="center">
               <v-col cols="12" md="6" xl="8">
-                <h1 class="display-2 font-weight-bold mb-4">Employerella</h1>
+                <h1 class="display-2 font-weight-bold mb-4">Employerella <br />BRING YOUR IDEAS TO LIFE</h1>
                 <h1 class="font-weight-light">
-                  Lorem ipsum dolor sit amet consectetur <br />
-                  adipisicing elit. Maiores porro voluptatibus <br />
-                  delectus nam optio harum!
+                  Is a computer engineering service company  <br />
+                  specializing in web development that helps you <br />
+                  digitize any service in your company.
                 </h1>
                 <v-btn
                   rounded
@@ -134,7 +134,7 @@
     data() {
       return {
         dialog: false,
-        videoId: "i8IvvHJssWE",
+        videoId: "j5-yKhDd64s",
         features: [
           {
             img: require("@/assets/img/icon2.png"),
