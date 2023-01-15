@@ -7,7 +7,7 @@
               <v-col cols="12" md="7">
                 <h1 class="font-weight-light display-2">About</h1>
                 <h1 class="font-weight-light display-1 mb-3">
-                  Lorem ipsum dolor!
+                  Take advantage of our services!
                 </h1>
                 <v-row>
                   <v-col cols="12" class="d-flex align-center">
@@ -17,9 +17,9 @@
                       class="mr-4"
                     />
                     <p class="text-justify">
-                      Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                      Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                      Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                      Our intuitive control panel gives you admin access to all of your DreamHost products. 
+                      Easily update domain information, add users, adjust email settings, 
+                      gain access to promotions and more.
                     </p>
                   </v-col>
                   <v-col cols="12" class="d-flex align-center">
@@ -29,9 +29,9 @@
                       class="mr-4"
                     />
                     <p class="text-justify">
-                      Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                      Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                      Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                      Create unlimited addresses with POP/IMAP/SMTP accounts,
+                      plus support for autoresponders, webmail, filtering, and advanced spam protection.
+                      Not included with "Shared Starter."
                     </p>
                   </v-col>
                   <v-col cols="12" class="d-flex align-center">
@@ -41,9 +41,9 @@
                       class="mr-4"
                     />
                     <p class="text-justify">
-                      Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                      Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                      Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                      Tech veterans, geeks, and nerds are all standing by to optimize your experience.
+                       Whether you get in touch with our support, read our knowledge base,
+                        or start a thread in our community forum — getting answers is easy.
                     </p>
                   </v-col>
                 </v-row>
