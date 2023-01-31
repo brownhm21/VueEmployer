@@ -15,14 +15,13 @@
       </v-card-text>
 
       <v-card-text class="white--text pt-0">
-        Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit amet.
-        Mauris cursus commodo interdum.
+        Employerella Named a Leader in 2022 Gartner® Magic Quadrant™ for Cloud Database Management Systems.
       </v-card-text>
 
       <v-divider></v-divider>
 
       <v-card-text class="white--text">
-        {{ new Date().getFullYear() }} — <strong>Employerella WEB</strong>
+        {{ new Date().getFullYear() }} — <strong>Employerella By Saif & Hemza</strong>
       </v-card-text>
     </v-card>
   </v-footer>

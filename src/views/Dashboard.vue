@@ -1,252 +1,354 @@
 <template>
-  <v-app id="inspire">
-    <Sidebar :drawer="drawer" />
-    <Topbar @drawerEvent="drawer = !drawer" />
-    <v-main class="py-8 px-6" fluid style="background: #f5f5f540">
-      <v-container >
-        <div class="dashboard">
-      <v-subheader class="py-0 d-flex justify-space-between rounded-lg">
-          <h3>Dashboard</h3>
-          <v-btn color="success">
-              View Orders
-          </v-btn>
-      </v-subheader>
-      <br>
-
-      
-      
-      <v-row>
-            <v-col lg="7" cols="12">
-                <v-alert dense text type="success" :value="alert">
-                    Login Successfully! Welcome to <strong>{{ user.name }}</strong>
-                </v-alert>
-                <v-row>
-                    <v-col lg="6" cols="12" v-for="(item,index) in activityLog" :key="index">
-                        <v-card elevation="2" class="rounded-lg">
-                            <v-card-text class="d-flex justify-space-between align-center">
-                                <div>
-                                    <strong>{{ item.title }}</strong> <br>
-                                    <span>Last 3 weeks</span>
-                                </div>
-                                <v-avatar size="60" :color="item.color" style="border: 3px solid #444">
-                                    <span style="color: white">{{item.amount}} +</span>
-                                </v-avatar>
-                            </v-card-text>
-                            <v-card-actions class="d-flex justify-space-between">
+    <v-app id="inspire">
+        <Sidebar :drawer="drawer" />
+        <Topbar @drawerEvent="drawer = !drawer" />
+        <v-main class="py-8 px-9" fluid style="background: #f5f5f540">
+            <v-container class="pt-10">
+                <div class="dashboard">
+                    <v-subheader class="py-0 d-flex justify-space-between rounded-lg">
+                        <h3>Dashboard</h3>
+                        <v-btn color="success">
+                            View Notes
+                        </v-btn>
+                    </v-subheader>
+                    <br>
 
 
-                            </v-card-actions>
-                        </v-card>
-                    </v-col>
-                </v-row>
-            </v-col>
-            <v-col cols="12" lg="5">
-                <v-card>
-                    <v-card-title>Activities</v-card-title>
-                    <v-card-text class="py-0">
-                        <v-timeline align-top dense>
-                            <v-timeline-item color="indigo" small>
-                                <strong>5 Minuts ago</strong>
-                                <div class="text-caption">
-                                   You have new order please check this out
-                                </div>
-                            </v-timeline-item>
-                            <v-timeline-item color="green" small>
-                                <strong>35 Minuts ago</strong>
-                                <div class="text-caption mb-2">
-                                    A Product has delivered!
-                                </div>
-                            </v-timeline-item>
 
-                            <v-timeline-item color="indigo" small>
-                                <strong>44 Minuts ago</strong>
-                                <div class="text-caption">
-                                    You have new order please check this out
-                                </div>
-                            </v-timeline-item>
-                        </v-timeline>
-                    </v-card-text>
-                </v-card>
-            </v-col>
-            <v-col>
-                <v-card>
-                    <v-data-table
-                            caption="Recent Order list"
-                            :headers="headers"
-                            :items="desserts"
-                            :items-per-page="5"
-                            class="elevation-1"
-                    >
-                        <template v-slot:item.action>
-                            <v-btn color="success" outlined small shaped >View</v-btn>
-                        </template>
-                    </v-data-table>
-                </v-card>
-            </v-col>
+                    <v-row>
+                        <v-col lg="7" cols="12">
+                            <v-alert dense text type="success" :value="alert">
+                                Login Successfully! Welcome to <strong>{{ user.name }}</strong>
+                            </v-alert>
+                            <v-row>
+                                <v-col lg="6" cols="12" v-for="(item, index) in activityLog" :key="index">
+                                    <v-card elevation="2" class="rounded-lg">
+                                        <v-card-text class="d-flex justify-space-between align-center">
+                                            <div>
+                                                <strong>{{ item.title }}</strong> <br>
+                                                <span>Last 3 weeks</span>
+                                            </div>
+                                            <v-avatar size="60" :color="item.color" style="border: 3px solid #444">
+                                                <span style="color: white">{{ item.amount }} +</span>
+                                            </v-avatar>
+                                        </v-card-text>
+                                        <v-card-actions class="d-flex justify-space-between">
+
+
+                                        </v-card-actions>
+                                    </v-card>
+                                </v-col>
+                            </v-row>
+                        </v-col>
+                        <v-col cols="12" lg="5">
+                            <v-card>
+                                <v-card-title>Activities</v-card-title>
+                                <v-card-text class="py-0">
+                                    <v-timeline align-top dense>
+                                        <v-timeline-item color="indigo" small>
+                                            <strong>5 Minuts ago</strong>
+                                            <div class="text-caption">
+                                                You have new note please check this out
+                                            </div>
+                                        </v-timeline-item>
+                                        <v-timeline-item color="green" small>
+                                            <strong>35 Minuts ago</strong>
+                                            <div class="text-caption mb-2">
+                                                A Note has delivered!
+                                            </div>
+                                        </v-timeline-item>
+
+                                        <v-timeline-item color="indigo" small>
+                                            <strong>44 Minuts ago</strong>
+                                            <div class="text-caption">
+                                                You have new note please check this out
+                                            </div>
+                                        </v-timeline-item>
+                                    </v-timeline>
+                                </v-card-text>
+                            </v-card>
+                        </v-col>
+                        
+                        
+
+                        <v-row>
+          <v-col>
+            <leaderboard />
+          </v-col>
         </v-row>
-  </div>
-      </v-container>
-    </v-main>
-  </v-app>
+
+
+
+
+                    </v-row>
+                </div>
+              
+
+                
+            </v-container>
+        </v-main>
+    </v-app>
 </template>
 
-  
-  <script>
-  import Footer from '@/components/Footer.vue';
-  import Sidebar from "@/components/Sidebar.vue";
-  import Topbar from "@/components/Topbar.vue";
-  import axios from 'axios';
+
+<script>
+import leaderboard from "@/components/leaderboard.vue";
+import Footer from '@/components/Footer.vue';
+import Sidebar from "@/components/Sidebar.vue";
+import Topbar from "@/components/Topbar.vue";
+import axios from 'axios';
 
 
-  export default {
+export default {
     name: 'Dashboard',
     data() {
-    return {
-    alert: true,
-      name: '',
-      email: '',
-      user:JSON.parse(localStorage.getItem("user")),
+        return {
+            alert: true,
+            name: '',
+            email: '',
+            user: JSON.parse(localStorage.getItem("user")),
 
-      //////////////////////////////////////////////////
-      cards: ["Today", "Yesterday"],
-      drawer: null,
-      activityLog: [
-                    {title: 'Total Products', amount: 50, icon: 'mdi-account', color: 'cyan lighten-3'},
-                    {title: 'Total Customer', amount: 3433, icon: 'mdi-account-group-outline', color: 'green darken-2'},
-                    {title: 'Total Sale', amount: 3433, icon: 'mdi-account-group-outline', color: 'blue-grey darken-1'},
-                    {
-                        title: 'Pending Orders',
-                        amount: 3433,
-                        icon: 'mdi-account-group-outline',
-                        color: 'deep-orange darken-1'
-                    },
-                ],
-                headers: [
-                    {
-                        text: 'Dessert (100g serving)',
-                        align: 'start',
-                        sortable: false,
-                        value: 'name',
-                    },
-                    {text: 'Calories', value: 'calories'},
-                    {text: 'Fat (g)', value: 'fat'},
-                    {text: 'Carbs (g)', value: 'carbs'},
-                    {text: 'Protein (g)', value: 'protein'},
-                    {text: 'Iron (%)', value: 'iron'},
-                    {text: 'Actions', value: 'action'},
-                ],
-                desserts: [
-                    {
-                        name: 'Frozen Yogurt',
-                        calories: 159,
-                        fat: 6.0,
-                        carbs: 24,
-                        protein: 4.0,
-                        iron: '1%',
-                    },
-                    {
-                        name: 'Ice cream sandwich',
-                        calories: 237,
-                        fat: 9.0,
-                        carbs: 37,
-                        protein: 4.3,
-                        iron: '1%',
-                    },
-                    {
-                        name: 'Eclair',
-                        calories: 262,
-                        fat: 16.0,
-                        carbs: 23,
-                        protein: 6.0,
-                        iron: '7%',
-                    },
-                    {
-                        name: 'Cupcake',
-                        calories: 305,
-                        fat: 3.7,
-                        carbs: 67,
-                        protein: 4.3,
-                        iron: '8%',
-                    },
-                    {
-                        name: 'Gingerbread',
-                        calories: 356,
-                        fat: 16.0,
-                        carbs: 49,
-                        protein: 3.9,
-                        iron: '16%',
-                    },
-                    {
-                        name: 'Jelly bean',
-                        calories: 375,
-                        fat: 0.0,
-                        carbs: 94,
-                        protein: 0.0,
-                        iron: '0%',
-                    },
-                    {
-                        name: 'Lollipop',
-                        calories: 392,
-                        fat: 0.2,
-                        carbs: 98,
-                        protein: 0,
-                        iron: '2%',
-                    },
-                    {
-                        name: 'Honeycomb',
-                        calories: 408,
-                        fat: 3.2,
-                        carbs: 87,
-                        protein: 6.5,
-                        iron: '45%',
-                    },
-                    {
-                        name: 'Donut',
-                        calories: 452,
-                        fat: 25.0,
-                        carbs: 51,
-                        protein: 4.9,
-                        iron: '22%',
-                    },
-                    {
-                        name: 'KitKat',
-                        calories: 518,
-                        fat: 26.0,
-                        carbs: 65,
-                        protein: 7,
-                        iron: '6%',
-                    },
-                ],
-    }
-  },
-  created() {
-    setTimeout(()=>{
-      this.alert=false
-    },5000)
-  },
-  mounted() {
-    
-    this.$http.get('http://localhost:3000/api/posts')
-      .then(res => {
-        this.name = res.data.user.name;
-        this.email = res.data.user.email;
-      })
-  },
-  methods: {
-    logout() {
-      localStorage.clear();
-      this.$router.push('/Register');
+            //////////////////////////////////////////////////
+/*
+            clipped: true,
+        drawer: true,
+        fixed: false,
+        items: [
+          { icon: 'bubble_chart', title: 'Inspire' }
+        ],
+        miniVariant: false,
+        right: true,
+        rightDrawer: false,
+        title: 'Vuetify.js',
+        dialog: false,
+         editedIndex: -1,
+        editedItem: {
+          name: '',
+          calories: 0,
+          fat: 0,
+          carbs: 0,
+          protein: 0
+        },
+        defaultItem: {
+          name: '',
+          calories: 0,
+          fat: 0,
+          carbs: 0,
+          protein: 0
+        },
+        listPrimitive: null,
+        */
+            ////////////////////////////////////////////
+            cards: ["Today", "Yesterday"],
+            drawer: null,
+            activityLog: [
+                { title: 'Total Trainees', amount: 50, icon: 'mdi-account', color: 'cyan lighten-3' },
+                { title: 'Total Employers', amount: 3433, icon: 'mdi-account-group-outline', color: 'green darken-2' },
+                { title: 'Total Notes', amount: 3433, icon: 'mdi-account-group-outline', color: 'blue-grey darken-1' },
+                {
+                    title: 'Pending Notes',
+                    amount: 3433,
+                    icon: 'mdi-account-group-outline',
+                    color: 'deep-orange darken-1'
+                },
+            ],
+            headers: [
+                {
+                    text: 'Profile',
+                    align: 'start',
+                    sortable: false,
+                    value: 'profile',
+                    class: "blue lighten-5"
+                },
+                { text: 'Full Name', value: 'fullname' },
+                { text: 'Email', sortable: false, value: 'email' },
+                { text: 'Phone', sortable: false, value: 'phone' },
+                { text: 'Address', sortable: false, value: 'address' },
+                { text: 'City', value: 'city' },
+                { text: 'Level', value: 'level' },
+                { text: 'Job', value: 'job' },
+            ],
+            desserts: [
+                {   
+                    profile: 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460',
+                    fullname: 'Browny Yogurt',
+                    email: 'Browny@gmail.com',
+                    phone: '0651215223',
+                    address: 'Hay Babsahra bloc b',
+                    city: 'Guelmim',
+                    level: 'Senior',
+                    job: 'Full Stack',
+                },
+                {
+                    fullname: 'Browny Hamza',
+                    email: 'Browny@gmail.com',
+                    phone: '0651215223',
+                    address: 'Hay Babsahra bloc b',
+                    city: 'Agadir',
+                    level: 'Senior',
+                    job: 'Full Stack',
+                },
+                {
+                    fullname: 'Yogurt',
+                    email: 'Browny@gmail.com',
+                    phone: '0651215223',
+                    address: 'Hay Babsahra bloc b',
+                    city: 'Casablanca',
+                    level: 'Senior',
+                    job: 'Full Stack',
+                },
+                {
+                    fullname: 'Garry harry',
+                    email: 'Browny@gmail.com',
+                    phone: '0651215223',
+                    address: 'Hay Babsahra bloc b',
+                    city: 'Rabat',
+                    level: 'Senior',
+                    job: 'Full Stack',
+                },
+                {
+                    fullname: 'Kalenji Yogurt',
+                    email: 'Browny@gmail.com',
+                    phone: '0651215223',
+                    address: 'Hay Babsahra bloc b',
+                    city: 'Senju',
+                    level: 'Senior',
+                    job: 'Full Stack',
+                },
+                {
+                    fullname: 'Naser Yogurt',
+                    email: 'Browny@gmail.com',
+                    phone: '0651215223',
+                    address: 'Hay Babsahra bloc b',
+                    city: 'Tanger',
+                    level: 'Senior',
+                    job: 'Full Stack',
+                },
+                {
+                    fullname: 'Vicent Yogurt',
+                    email: 'Browny@gmail.com',
+                    phone: '0651215223',
+                    address: 'Hay Babsahra bloc b',
+                    city: 'Agadir',
+                    level: 'Senior',
+                    job: 'Full Stack',
+                },
+                {
+                    fullname: 'Ayoub Yogurt',
+                    email: 'Browny@gmail.com',
+                    phone: '0651215223',
+                    address: 'Hay Babsahra bloc b',
+                    city: 'Agadir',
+                    level: 'Senior',
+                    job: 'Full Stack',
+                },
+                {
+                    fullname: 'Erling Yogurt',
+                    email: 'Browny@gmail.com',
+                    phone: '0651215223',
+                    address: 'Hay Babsahra bloc b',
+                    city: 'Fes',
+                    level: 'Senior',
+                    job: 'Full Stack',
+                },
+                {
+                    fullname: 'Ruben Yogurt',
+                    email: 'Browny@gmail.com',
+                    phone: '0651215223',
+                    address: 'Hay Babsahra bloc b',
+                    city: 'Guelmim',
+                    level: 'Senior',
+                    job: 'Full Stack',
+                },
+            ],
+        }
     },
-    onButtonClick(item) {
-                console.log('click on ' + item.no)
-            }
-  },
+    created() {
+        setTimeout(() => {
+            this.alert = false
+        }, 5000)
+    },
+    mounted() {
+
+        this.$http.get('http://localhost:3000/api/posts')
+            .then(res => {
+                this.name = res.data.user.name;
+                this.email = res.data.user.email;
+            })
+    },
+    methods: {
+        logout() {
+            localStorage.clear();
+            this.$router.push('/Register');
+        },
+        onButtonClick(item) {
+            console.log('click on ' + item.no)
+        },
+
+        
+        subscribeToUpdate() {
+          this.listPrimitive.onItemAdded(item => {
+            this.desserts.push(item.value)
+          })
+
+          this.listPrimitive.onItemUpdated(item => {
+            //update the item at item.index
+            this.desserts.splice(item.index, 1, item.value);
+          })
+
+          this.listPrimitive.onItemRemoved(item => {
+            //remove the item at item.index
+            this.desserts.splice(item.index, 1);
+          })
+        },
+
+        editItem(item) {
+          this.editedIndex = this.desserts.indexOf(item)
+          this.editedItem = Object.assign({}, item)
+          this.dialog = true
+        },
+
+        deleteItem(item) {
+          const index = this.desserts.indexOf(item)
+          confirm('Are you sure you want to delete this item?') && this.listPrimitive.remove(index)
+        },
+
+        close() {
+          this.dialog = false
+          setTimeout(() => {
+            this.editedItem = Object.assign({}, this.defaultItem)
+            this.editedIndex = -1
+          }, 300)
+        },
+
+        save() {
+          if (this.editedIndex > -1) {
+            this.listPrimitive.update(this.editedIndex, this.editedItem)
+          } else {
+            this.listPrimitive.add(this.editedItem)
+          }
+
+          this.close()
+        }
+    },
+    computed: {
+        formTitle() {
+          return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+        }
+      },
+
+      watch: {
+        dialog(val) {
+          val || this.close()
+        }
+      },
 
 
     components: {
-    Footer,
-    Topbar, 
-    Sidebar,
-  }
-  };
-  </script>
+        Footer,
+        Topbar,
+        Sidebar,
+        leaderboard,
+    }
+};
+</script>

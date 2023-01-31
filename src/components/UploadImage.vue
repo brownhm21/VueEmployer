@@ -1,5 +1,4 @@
 <template>
-    
    <v-container>
     <v-row no-gutters justify="center" align="center">
       <v-col cols="8">
@@ -17,6 +16,10 @@
           <v-icon right dark>mdi-cloud-upload</v-icon>
         </v-btn>
       </v-col>
+
+      
+
+
     </v-row>
 
     <div v-if="progress">
@@ -67,6 +70,7 @@ export default {
       this.previewImage = URL.createObjectURL(this.currentImage);
       this.progress = 0;
       this.message = "";
+      console.log(this.currentImage);
      
     },
     upload() {

@@ -43,11 +43,17 @@
 
 
             <v-row>
-                <v-col cols="12">
+                <v-col cols="6">
                     <v-btn color="primary" @click="update">
                         Update
                     </v-btn>
+                    
                 </v-col>
+                <!-- <v-col cols="6">
+                    <v-btn color="deep-purple accent-4" @click="reset">
+                        Reset
+                    </v-btn>
+                </v-col> -->
             </v-row>
         </v-form>
 
@@ -142,7 +148,7 @@ export default {
             this.$refs.form.reset();
         },
         resetValidation() {
-            this.$refs.form.resetValidation();
+            this.companie
         },
 
 
