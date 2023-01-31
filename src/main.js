@@ -10,7 +10,7 @@ import VueYouTubeEmbed from 'vue-youtube-embed'
 
 Vue.use(VueYouTubeEmbed)
 Vue.config.productionTip = false
-Vue.prototype.$http= http 
+Vue.prototype.$http= http
 new Vue({
   router,
   store,

@@ -84,6 +84,11 @@
        
        this.$router.push('/employerAdd');
        
+     }else if (action === "Notes") {
+        console.log('push Notes')
+       
+       this.$router.push('/notes');
+       
      }
     }
     },
