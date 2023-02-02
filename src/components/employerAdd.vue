@@ -7,47 +7,47 @@
 
 
 
-        <v-main class="py-8 px-6" fluid>
+        <v-main class="py-8 px-6 pt-20" fluid>
             <v-progress-linear :active="formLoading" indeterminate top absolute
                 color="primary accent-4"></v-progress-linear>
             <v-container>
                 <v-form ref="form" v-model="valid" lazy-validation
                     :style="{ background: $vuetify.theme.themes[theme].formBackground }"
-                    class="elevation-5 rounded-lg px-5 py-7">
+                    class="elevation-5 rounded-lg px-5 py-7 pt-20">
                     <v-row>
                         <v-col cols="12">
                             <div class="headline">Employer</div>
                         </v-col>
                         <v-col cols="12" md="6" class="mb-0">
-                            <v-text-field label="First Name" v-model="formData.firstName" outlined
+                            <v-text-field label="First Name" v-model="firstName" outlined
                                 prepend-inner-icon="mdi-account-arrow-right-outline" :rules="requiredRules" />
                         </v-col>
                         <v-col cols="12" md="6">
-                            <v-text-field label="Last Name" v-model="formData.lastName" outlined
+                            <v-text-field label="Last Name" v-model="lastName" outlined
                                 prepend-inner-icon="mdi-account-arrow-left-outline" :rules="requiredRules" />
                         </v-col>
                         <v-col cols="12" md="6">
-                            <v-text-field label="E-Mail" v-model="formData.email" outlined :rules="emailRules"
+                            <v-text-field label="E-Mail" v-model="email" outlined :rules="emailRules"
                                 prepend-inner-icon="mdi-email-outline" />
                         </v-col>
                         <v-col cols="12" md="6">
-                            <v-text-field label="Phone Number" v-model="formData.phoneNumber" outlined counter="10"
+                            <v-text-field label="Phone Number" v-model="phoneNumber" outlined counter="10"
                                 :rules="numberRules" prepend-inner-icon="mdi-cellphone" />
                         </v-col>
 
                         <v-col cols="12">
-                            <v-text-field label="Address" v-model="formData.address" outlined :rules="requiredRules"
+                            <v-text-field label="Address" v-model="address" outlined :rules="requiredRules"
                                 prepend-inner-icon="mdi-home-variant" />
                         </v-col>
 
                         <v-col cols="6">
-                            <v-text-field label="City" v-model="formData.city" outlined :rules="requiredRules"
+                            <v-text-field label="City" v-model="city" outlined :rules="requiredRules"
                                 prepend-inner-icon="mdi-map-marker-multiple" />
                         </v-col>
 
                         <v-col cols="6">
-                            <v-text-field label="Zip Code" v-model="formData.zipcode" outlined counter="5"
-                                :rules="numberRules" prepend-inner-icon="mdi-map" />
+                            <v-text-field label="Zip Code" v-model="zipcode" outlined counter="5" :rules="numberRules"
+                                prepend-inner-icon="mdi-map" />
                         </v-col>
 
 
@@ -58,36 +58,45 @@
                             <div class="headline">Jobs</div>
                         </v-col>
                     </v-row>
-                    <v-btn @click="addRow" small text color="primary" class="ml-2" disabled>
+                    <v-btn  small text color="primary" class="ml-2" disabled>
                         <v-icon>mdi-briefcase-plus</v-icon>
                         <span>add</span>
                     </v-btn>
-                    <v-row class="rounded mb-2 mx-0" v-for="(job, index) in formData.jobs" :key="index"
+                    <v-row class="rounded mb-2 mx-0" 
                         style="border: 1px solid lightgrey;">
                         <v-col cols="12" md="3">
-                            <v-autocomplete v-model="job.position" :items="positions" label="Level"
+                            <v-autocomplete v-model="jobs.level" :items="positions" label="Level"
                                 prepend-icon="mdi-domain" :rules="requiredRules" />
                         </v-col>
 
                         <v-col cols="12" md="4">
-                            <v-text-field label="Company Job" v-model="job.company" :rules="requiredRules"
+                            <v-text-field label="Company Job" v-model="jobs.company" :rules="requiredRules"
                                 hint="The name is quite enough." prepend-icon="mdi-domain" />
                         </v-col>
 
-                        <v-col cols="12" md="4" v-if="job.position === 'Trainee'">
+                        <!-- <v-col cols="12" md="4">
+                            <v-autocomplete v-model="jobs.level" label="Company Name"
+                                prepend-icon="mdi-domain" :rules="requiredRules"  item-value="id"
+        item-text="name"
+        return-object
+        :items="companies"
+        @change="onChange" />
+                        </v-col> -->
+
+                        <v-col cols="12" md="4" v-if="jobs.level === 'Trainee'">
                             <v-dialog ref="dialog" v-model="calenderModal" persistent width="290px">
                                 <template v-slot:activator="{ on, attrs }">
-                                    <v-text-field v-model="job.dateRange" label="Employment period"
+                                    <v-text-field v-model="jobs.dateRange" label="Employment period"
                                         prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
                                         :rules="requiredRules"></v-text-field>
                                 </template>
-                                <v-date-picker v-model="job.dateRange" type="month" range>
+                                <v-date-picker v-model="jobs.dateRange" type="month" range>
                                     <v-spacer></v-spacer>
                                     <v-btn text color="primary"
-                                        @click="(calenderModal = false); (job.dateRange = null);">
+                                        @click="(calenderModal = false); (jobs.dateRange = null);">
                                         Cancel
                                     </v-btn>
-                                    <v-btn text color="primary" @click="validateDate(job.dateRange, index)">
+                                    <v-btn text color="primary" @click="validateDate(jobs.dateRange)">
                                         Save
                                     </v-btn>
                                 </v-date-picker>
@@ -100,10 +109,10 @@
                                 <v-icon>mdi-menu-up</v-icon>
                             </v-btn>
                             <v-btn icon small color="primary"
-                                :disabled="index === Object.keys(formData.jobs).length - 1" @click="moveDown(index)">
+                                :disabled="index === Object.keys(jobs).length - 1" @click="moveDown(index)">
                                 <v-icon>mdi-menu-down</v-icon>
                             </v-btn>
-                            <v-btn icon small color="red" :disabled="Object.keys(formData.jobs).length === 1"
+                            <v-btn icon small color="red" :disabled="Object.keys(jobs).length === 1"
                                 @click="deleteRow(index)">
                                 <v-icon>mdi-close</v-icon>
                             </v-btn>
@@ -135,14 +144,15 @@
 
                     <v-row class="rounded mb-2 mx-0 " style="border: 1px solid lightgrey;">
                         <v-col cols="12" md="1">
-                            <v-img :src="imageUrl" class="pa-10 secondary rounded-circle d-inline-block"
+                            <v-img :src="imagePreviewURL" class="pa-10 secondary rounded-circle d-inline-block"
                                 style="max-height: 30px; max-width: 30px" />
 
                         </v-col>
 
                         <v-col cols="12" md="3">
-                            <v-file-input v-model="image" type="file" class="input" show-size
-                                label="Upload Profile Picture" outlined dense @change="onFileChange" />
+                            <input class="input" show-size type="file" label="Upload Profile Picture" outlined dense
+                                @change="logoSelected" accept="image/*" />
+
 
                         </v-col>
                         <!-- <v-col cols="12" md="2">
@@ -168,6 +178,42 @@
                         </div>
 
 
+                        <!-- <div class="d-flex flex-wrap gap-2">
+              <v-btn
+                color="primary"
+                @click="refInputEl?.click()"
+              >
+                <v-icon
+                  icon="mdi-cloud-upload-outline"
+                  class="d-sm-none"
+                />
+                <span class="d-none d-sm-block">Upload new photo</span>
+              </v-btn>
+
+              <input
+                ref="refInputEl"
+                type="file"
+                name="file"
+                accept=".jpeg,.png,.jpg,GIF"
+                hidden
+                @input="logoSelected"
+              >
+
+              <v-btn
+                type="reset"
+                color="error"
+                variant="tonal"
+                @click="resetPreview"
+              >
+                <span class="d-none d-sm-block">Reset</span>
+                <v-icon
+                  icon="mdi-refresh"
+                  class="d-sm-none"
+                />
+              </v-btn>
+            </div> -->
+
+
 
 
 
@@ -178,14 +224,15 @@
 
                     <v-row>
                         <v-col cols="12">
-                            <v-btn color="primary" @click="validate">
+                            <v-btn color="primary" @click="submitForm">
                                 Submit
                             </v-btn>
                         </v-col>
                     </v-row>
                 </v-form>
             </v-container>
-            <div class="caption mt-10">{{ formData }}</div>
+            <!-- <div class="caption mt-10">{{ formData }}</div> -->
+            <div class="caption mt-10">{{ image }}</div>
 
         </v-main>
     </v-app>
@@ -198,21 +245,48 @@ import Topbar from "@/components/Topbar.vue";
 import UploadImage from "@/components/UploadImage.vue";
 import UpImage from "@/components/UpImage.vue";
 import axios from 'axios';
+
 export default {
     name: 'employerAdd',
+
+    props: {
+        selectedCompany: {
+            type: Object,
+            default: null
+        }
+    },
 
 
     data: () => ({
         ////////////for image upload
-        image: undefined,
+        image: '',
+        createdByu: (JSON.parse(localStorage.getItem("user"))._id) ? { "_id": JSON.parse(localStorage.getItem("user"))._id } : null,
+        jobs: {
+            company:'',
+            level:'',
+            dateRange:null
+        },
+        firstName: '',
+        lastName: '',
+        email: '',
+        phoneNumber: '',
+        address: '',
+        city: '',
+        zipcode: '',
         // to save image url
         imageUrl: '',
         imagePreviewURL: null,
+        imagePreview: '',
         progress: 0,
         message: "",
         currentImage: undefined,
         previewImage: null,
         ///////////////////////////
+        //file: null,
+        profilePicture: '',
+        picture: '',
+        //////////////////////
+        
 
         drawer: null,
         valid: false,
@@ -227,13 +301,13 @@ export default {
             "V-Level",
             "C-Level"
         ],
-        formData: {
-            image:'',
-            createdByu:(JSON.parse(localStorage.getItem("user"))._id) ? {"_id":JSON.parse(localStorage.getItem("user"))._id} : null ,
-            //companyBy:(JSON.parse(localStorage.getItem("company"))._id) ? {"_id":JSON.parse(localStorage.getItem("company"))._id} : null ,
-
-            jobs: [{}]
-        },
+        //////////////////////////
+        userdata:JSON.parse(localStorage.getItem("user")) ,
+        ////////////////////
+        companies:[],
+        // formData: {
+        // },
+        formDataa: {},
         requiredRules: [(v) => !!v || "Please fill out this field!"],
         numberRules: [
             (v) => !!v || "Please fill out this field!",
@@ -252,6 +326,46 @@ export default {
 
     }),
     methods: {
+        /////////////////////////////////
+        logoSelected(e) {
+            this.image = e.target.files[0];
+
+            let reader = new FileReader();
+            reader.readAsDataURL(this.image);
+            reader.onload = (e) => {
+                this.imagePreviewURL = e.target.result;
+            };
+            
+        },
+        ////////////////////////////////////////////
+        uploadFile() {
+            const input = this.$refs.fileInput;
+            this.file = input.files[0];
+            console.log(this.file)
+            // do something with the file
+        },
+        showCompany: function () {
+            axios.get(`http://localhost:3000/api/company/companyUserr/${this.userdata._id}`
+            )
+                .then(response => {
+                    this.companie = response.data;
+                })
+        },
+        /////////////////////////////////////
+
+        handleFileChange(event) {
+            const file = event.target.files[0];
+            // Do something with the file, such as upload to a server
+            this.profilePicture = URL.createObjectURL(file);
+
+        },
+        updatePicture(event) {
+            const file = event.target.files[0];
+            this.picture = URL.createObjectURL(file);
+            console.log(this.picture)
+            console.log(event)
+        },
+        ///////////////////////////////////////////
         onChange(image) {
             console.log('New picture selected!')
             if (image) {
@@ -265,17 +379,24 @@ export default {
         createImage(file) {
             const reader = new FileReader();
 
+
             reader.onload = (e) => {
                 this.imageUrl = e.target.result;
+                console.log(e.target.files[0])
             };
             reader.readAsDataURL(file);
         },
-        onFileChange(file) {
-            if (!file) {
-                this.message = "Please select an Image!";
-                return;
-            }
-            this.createImage(file);
+        onFileChange(event) {
+
+            this.image = event.target.files[0];
+            this.imageUrl = URL.createObjectURL(file);
+            console.log(e.target.value);
+            // this.image = URL.createObjectURL(file);
+            // if (!file) {
+            //     this.message = "Please select an Image!";
+            //     return;
+            // }
+            // this.createImage(file);
             this.message = " Image Selected!";
         },
         reset: function () {
@@ -323,63 +444,55 @@ export default {
 
         },
         /////////////////////////////
-        submitForm(){
-    let formData = new FormData();
+        submitForm() {
+            let job = JSON.parse(JSON.stringify(this.jobs));
+            let formData = new FormData();
+            formData.append("Firstname", this.firstName);
+            formData.append("Lastname", this.lastName);
+            formData.append("email", this.email); 
+            formData.append("phoneNumber", this.phoneNumber);
 
-    formData.append("firstName", this.formFields.picture);
-    formData.append("lastName", this.formFields.title);
-    formData.append("email", this.formFields.description);
-    formData.append("address", this.formFields.picture);
-    formData.append("city", this.formFields.title);
-    formData.append("zipcode", this.formFields.description);
-    formData.append("image", this.image);
-    formData.append("city", this.formFields.title);
-    formData.append("zipcode", this.formFields.description);
+            formData.append("address", this.address);
+            formData.append("city", this.city);
+            formData.append("zipcode", this.zipcode);
+            formData.append("level",this.jobs.level);
+            formData.append("companyjob",this.jobs.company);
+           (this.jobs.dateRange != null) ? formData.append("startdate",this.jobs.dateRange[0]) : '';
+           (this.jobs.dateRange != null) ? formData.append("endDate",this.jobs.dateRange[1]) : '';
+            formData.append("createdByu",'63ac503a781d80d6b98aa091');
+            formData.append("companyBy",'63b2f8a65694b4119b746fcb');
+            formData.append("file", this.image);
+            // console.log(Object.fromEntries(formData));
+            // console.log(job);
 
-
-    axios.post('/posts',
-     formData, 
-    { headers: { "Content-Type": "multipart/form-data" } }
-    )
-            .then((res) => {
-                console.log(res);
-            })
-            .catch((error) => {
-                console.log(error);
-    });
-},
+            axios.post('http://localhost:3000/api/employer/employerImage',
+                formData,
+              
+            )
+                .then((res) => {
+                    console.log(res);
+                    console.log('Success!')
+                    console.log({response})
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
         ////////////////////////////////
-        deleteRow(index) {
-            this.formData.jobs.splice([index], 1);
-        },
-        addRow() {
-            this.formData.jobs.push({});
-        },
-        moveUp(index) {
-            let temp1 = this.formData.jobs[index];
-            let temp2 = this.formData.jobs[index - 1];
-            this.$set(this.formData.jobs, index, temp2);
-            this.$set(this.formData.jobs, index - 1, temp1);
-        },
-        moveDown(index) {
-            let temp1 = this.formData.jobs[index];
-            let temp2 = this.formData.jobs[index + 1];
-            this.$set(this.formData.jobs, index, temp2);
-            this.$set(this.formData.jobs, index + 1, temp1);
-        },
+        
         validate() {
             if (this.$refs.form.validate()) {
                 console.log("submit");
                 this.formLoading = true;
                 // Timeout Function only for showing loading progress
                 setTimeout(() => {
-                    alert(JSON.stringify(this.formData));
+                    alert(this.image);
                     this.formLoading = false;
                     this.reset();
                 }, 4000);
             }
         },
-        validateDate(dateRange, index) {
+        validateDate(dateRange) {
             if (dateRange.length === 2) {
                 this.calenderModal = false;
             }
