@@ -58,12 +58,11 @@
                             <div class="headline">Jobs</div>
                         </v-col>
                     </v-row>
-                    <v-btn  small text color="primary" class="ml-2" disabled>
+                    <v-btn small text color="primary" class="ml-2" disabled>
                         <v-icon>mdi-briefcase-plus</v-icon>
                         <span>add</span>
                     </v-btn>
-                    <v-row class="rounded mb-2 mx-0" 
-                        style="border: 1px solid lightgrey;">
+                    <v-row class="rounded mb-2 mx-0" style="border: 1px solid lightgrey;">
                         <v-col cols="12" md="3">
                             <v-autocomplete v-model="jobs.level" :items="positions" label="Level"
                                 prepend-icon="mdi-domain" :rules="requiredRules" />
@@ -75,13 +74,13 @@
                         </v-col>
 
                         <!-- <v-col cols="12" md="4">
-                            <v-autocomplete v-model="jobs.level" label="Company Name"
-                                prepend-icon="mdi-domain" :rules="requiredRules"  item-value="id"
-        item-text="name"
-        return-object
-        :items="companies"
-        @change="onChange" />
+                            <v-autocomplete v-model="jobs.companyName" label="Company Name"
+                                prepend-icon="mdi-domain" :rules="requiredRules"  item-value="_id"
+                             item-text="companyName"
+                             :items="companies" />
                         </v-col> -->
+
+                        
 
                         <v-col cols="12" md="4" v-if="jobs.level === 'Trainee'">
                             <v-dialog ref="dialog" v-model="calenderModal" persistent width="290px">
@@ -178,6 +177,7 @@
                         </div>
 
 
+
                         <!-- <div class="d-flex flex-wrap gap-2">
               <v-btn
                 color="primary"
@@ -219,6 +219,13 @@
 
 
                     </v-row>
+                    <v-row>
+                        <v-col sm="12">
+                            <v-alert v-if="responseSuccess" dense text type="success">
+                                You have successfully added member.
+                            </v-alert>
+                        </v-col>
+                    </v-row>
 
 
 
@@ -233,6 +240,7 @@
             </v-container>
             <!-- <div class="caption mt-10">{{ formData }}</div> -->
             <div class="caption mt-10">{{ image }}</div>
+            <div class="caption mt-10">{{ companies }}</div>
 
         </v-main>
     </v-app>
@@ -245,16 +253,12 @@ import Topbar from "@/components/Topbar.vue";
 import UploadImage from "@/components/UploadImage.vue";
 import UpImage from "@/components/UpImage.vue";
 import axios from 'axios';
+import api from "@/services/apiService";
 
 export default {
     name: 'employerAdd',
 
-    props: {
-        selectedCompany: {
-            type: Object,
-            default: null
-        }
-    },
+   
 
 
     data: () => ({
@@ -262,9 +266,9 @@ export default {
         image: '',
         createdByu: (JSON.parse(localStorage.getItem("user"))._id) ? { "_id": JSON.parse(localStorage.getItem("user"))._id } : null,
         jobs: {
-            company:'',
-            level:'',
-            dateRange:null
+            company: '',
+            level: '',
+            dateRange: null
         },
         firstName: '',
         lastName: '',
@@ -286,7 +290,8 @@ export default {
         profilePicture: '',
         picture: '',
         //////////////////////
-        
+        responseSuccess: false,
+
 
         drawer: null,
         valid: false,
@@ -302,9 +307,10 @@ export default {
             "C-Level"
         ],
         //////////////////////////
-        userdata:JSON.parse(localStorage.getItem("user")) ,
+        userdata: JSON.parse(localStorage.getItem("user")),
         ////////////////////
-        companies:[],
+        company:0,
+        companies: [],
         // formData: {
         // },
         formDataa: {},
@@ -335,7 +341,7 @@ export default {
             reader.onload = (e) => {
                 this.imagePreviewURL = e.target.result;
             };
-            
+
         },
         ////////////////////////////////////////////
         uploadFile() {
@@ -344,13 +350,20 @@ export default {
             console.log(this.file)
             // do something with the file
         },
-        showCompany: function () {
+        /*showCompany: function () {
             axios.get(`http://localhost:3000/api/company/companyUserr/${this.userdata._id}`
             )
                 .then(response => {
-                    this.companie = response.data;
+                    this.companies = response.data.companies;
                 })
-        },
+        },*/
+        /////////////get companies
+        getCompanies: function(){
+                axios.get(`http://localhost:3000/api/company/companyUser/${this.userdata._id}`)
+                    .then(function (response) {
+                        this.companies = response.data;
+                    }.bind(this));
+            },
         /////////////////////////////////////
 
         handleFileChange(event) {
@@ -449,37 +462,39 @@ export default {
             let formData = new FormData();
             formData.append("Firstname", this.firstName);
             formData.append("Lastname", this.lastName);
-            formData.append("email", this.email); 
+            formData.append("email", this.email);
             formData.append("phoneNumber", this.phoneNumber);
 
             formData.append("address", this.address);
             formData.append("city", this.city);
             formData.append("zipcode", this.zipcode);
-            formData.append("level",this.jobs.level);
-            formData.append("companyjob",this.jobs.company);
-           (this.jobs.dateRange != null) ? formData.append("startdate",this.jobs.dateRange[0]) : '';
-           (this.jobs.dateRange != null) ? formData.append("endDate",this.jobs.dateRange[1]) : '';
-            formData.append("createdByu",'63ac503a781d80d6b98aa091');
-            formData.append("companyBy",'63b2f8a65694b4119b746fcb');
+            formData.append("level", this.jobs.level);
+            formData.append("companyjob", this.jobs.company);
+            (this.jobs.dateRange != null) ? formData.append("startdate", this.jobs.dateRange[0]) : '';
+            (this.jobs.dateRange != null) ? formData.append("endDate", this.jobs.dateRange[1]) : '';
+            formData.append("createdByu", '63ac503a781d80d6b98aa091');
+            formData.append("companyBy", '63b2f8a65694b4119b746fcb');
             formData.append("file", this.image);
             // console.log(Object.fromEntries(formData));
             // console.log(job);
 
             axios.post('http://localhost:3000/api/employer/employerImage',
                 formData,
-              
+
             )
                 .then((res) => {
                     console.log(res);
                     console.log('Success!')
-                    console.log({response})
+                    console.log({ response })
+                    this.responseSuccess = true;
+                    
                 })
                 .catch((error) => {
                     console.log(error);
                 });
         },
         ////////////////////////////////
-        
+
         validate() {
             if (this.$refs.form.validate()) {
                 console.log("submit");
@@ -512,6 +527,18 @@ export default {
             return this.$vuetify.theme.dark ? "dark" : "light";
         }
     },
+    created() {
+    this.fetchOptions();
+  },
+  mounted() {
+    axios.get(`http://localhost:3000/api/company/companyUserr/${this.userdata._id}`)
+      .then(response => {
+        this.companies = response.data;
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  },
     components: {
         Topbar,
         Sidebar,
