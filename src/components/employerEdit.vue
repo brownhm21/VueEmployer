@@ -8,7 +8,7 @@
             rounded="lg"
             size="100"
             class="me-6"
-            :image="accountDataLocal.avatarImg"
+            :image=""
           />
 
           <!-- 👉 Upload Photo -->
@@ -19,7 +19,7 @@
             <div class="d-flex flex-wrap gap-2">
               <v-btn
                 color="primary"
-                @click="refInputEl?.click()"
+                @click=""
               >
                 <v-icon
                   icon="mdi-cloud-upload-outline"
@@ -34,14 +34,14 @@
                 name="file"
                 accept=".jpeg,.png,.jpg,GIF"
                 hidden
-                @input="changeAvatar"
+                @input=""
               >
 
               <v-btn
                 type="reset"
                 color="error"
                 variant="tonal"
-                @click="resetAvatar"
+                @click=""
               >
                 <span class="d-none d-sm-block">Reset</span>
                 <v-icon
@@ -69,7 +69,7 @@
                 cols="12"
               >
                 <v-text-field
-                  v-model="accountDataLocal.firstName"
+                  v-model=""
                   label="First Name"
                 />
               </v-col>
@@ -80,7 +80,7 @@
                 cols="12"
               >
                 <v-text-field
-                  v-model="accountDataLocal.lastName"
+                  v-model=""
                   label="Last Name"
                 />
             </v-col>
@@ -91,7 +91,7 @@
                 md="6"
               >
                 <v-text-field
-                  v-model="accountDataLocal.email"
+                  v-model=""
                   label="E-mail"
                   type="email"
                 />
@@ -103,7 +103,7 @@
                 md="6"
               >
                 <v-text-field
-                  v-model="accountDataLocal.org"
+                  v-model=""
                   label="Organization"
                 />
               </v-col>
@@ -114,7 +114,7 @@
                 md="6"
               >
                 <v-text-field
-                  v-model="accountDataLocal.phone"
+                  v-model=""
                   label="Phone Number"
                 />
               </v-col>
