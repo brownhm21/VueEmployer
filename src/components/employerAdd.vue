@@ -308,6 +308,7 @@ export default {
         ],
         //////////////////////////
         userdata: JSON.parse(localStorage.getItem("user")),
+        createdhah: JSON.parse(localStorage.getItem("user"))._id,
         ////////////////////
         company:0,
         companies: [],
@@ -472,7 +473,7 @@ export default {
             formData.append("companyjob", this.jobs.company);
             (this.jobs.dateRange != null) ? formData.append("startdate", this.jobs.dateRange[0]) : '';
             (this.jobs.dateRange != null) ? formData.append("endDate", this.jobs.dateRange[1]) : '';
-            formData.append("createdByu", '63ac503a781d80d6b98aa091');
+            formData.append("createdByu", this.userdata._id);
             formData.append("companyBy", '63b2f8a65694b4119b746fcb');
             formData.append("file", this.image);
             // console.log(Object.fromEntries(formData));
