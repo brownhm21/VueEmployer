@@ -1,104 +1,111 @@
 <template>
   <div id="app">
-    <v-data-table :headers="headers" :items="data" class="elevation-1" :items-per-page="5" :loading="loadTable"
+    <v-data-table :headers="headers" :items="Employers" class="elevation-1" :items-per-page="5" :loading="loadTable"
       loading-text="Loading Leaderboard... Please wait">
-      <template v-slot:item.avatar="{ item, index }">
-        <v-badge avatar bordered overlap v-if="index < 3">
-          <template v-slot:badge v-if="index < 3">
+      <template v-slot:item.avatar="{ item }">
+        <v-badge avatar bordered overlap >
+          <template v-slot:badge >
             <v-avatar>
-              <v-img v-if="index == 0" src="http://strafrecht-online.org/stuff/trophy-gold.png"></v-img>
-              <v-img v-if="index == 1" src="http://strafrecht-online.org/stuff/trophy-silver.png"></v-img>
-              <v-img v-if="index == 2" src="http://strafrecht-online.org/stuff/trophy-bronze.png"></v-img>
-            </v-avatar>
+              <v-img v-if="item.jobs.level === 'Senior'" src="http://strafrecht-online.org/stuff/trophy-gold.png"></v-img>
+              <v-img v-if="item.jobs.level === 'Junior'" src="http://strafrecht-online.org/stuff/trophy-silver.png"></v-img>
+              <v-img v-if="item.jobs.level === 'Trainee'" src="http://strafrecht-online.org/stuff/trophy-bronze.png"></v-img>
+               </v-avatar>
           </template>
-          <v-avatar :color="getRandomColor()" size="40"><img v-if="item.avatar_url" :src="item.avatar_url" />
-            <span v-else>{{ initials(item.name) }}</span>
+          <v-avatar size="40">
+            <img :src="path + item.avatar" />
+
           </v-avatar>
         </v-badge>
-        <v-avatar v-else :color="getRandomColor()" size="40"><img v-if="item.avatar_url" :src="item.avatar_url" />
-          <span v-else>{{ initials(item.name) }}</span>
-        </v-avatar>
-      </template>
-      <template v-slot:item.points30="{ item }">
+
+      </template> -->
+      <!-- <template v-slot:item.points30="{ item }">
         <v-chip :color="`${project.status}`" :class="`white--text caption my-2`">
           {{ item.points30 }}
         </v-chip>
       </template>
+      <template v-slot:item.email="{ item }">
+      {{ item.email }}
+    </template>
+    <template v-slot:item.LastName="{ item }">
+      {{ item.LastName }}
+    </template>
       <template v-slot:item.pointsalltime="{ item }">
         <v-chip :color="getColor(item.pointsalltime)">
           {{ item.pointsalltime }}
         </v-chip>
       </template>
-      <template v-slot:item.companyjob="{ item }">
-        <v-chip
-          :color="item.companyjob === 'Trainee' ? 'green lighten-1' : item.companyjob === 'Senior' ? 'blue' : item.companyjob === 'Junior' ? 'deep-purple accent-4' : 'orange'"
-          class="ma-2" outlined transparent>
-          {{ item.companyjob }}
-        </v-chip>
-      </template>
+      
 
-      <!-- <template v-slot:item.trend="{ item }">
+      <!<template v-slot:item.trend="{ item }">
         <v-sparkline :value="item.trend_values" :gradient="gradient" :smooth="radius || false" :padding="padding"
           :line-width="width" :stroke-linecap="lineCap" :gradient-direction="gradientDirection" :fill="fill"
           :type="type" :auto-line-width="autoLineWidth" auto-draw></v-sparkline>
       </template> -->
+      <template v-slot:item.jobs.level="{ item }">
+        <v-chip
+          :color="item.jobs.level === 'Trainee' ? 'green lighten-1' : item.jobs.level === 'Senior' ? 'blue' : item.jobs.level === 'Junior' ? 'deep-purple accent-4' : item.jobs.level === 'Working Student' ? 'red lighten-1' : 'orange'"
+          class="ma-2" outlined transparent>
+          {{ item.jobs.level }}
+        </v-chip>
+      </template>
       <template v-slot:item.info="{ item, index }">
-        <v-btn icon color="primary" small @click.stop="$set(dialogNote, item.name, true)">
+        <v-btn icon color="primary" small @click.stop="$set(dialogNote, item.id, true)">
           <v-icon small>mdi-open-in-new</v-icon>
         </v-btn>
-        <v-btn icon color="primary" small @click.stop="$set(dialogNoteEdit, item.name, true)">
+        <v-btn icon color="primary" small @click.stop="$set(dialogNoteEdit, item.id, true)">
           <v-icon small>mdi-pencil</v-icon>
         </v-btn>
-        <v-btn icon color="primary" small @click.stop="$set(dialogNoteDelete, item.name, true)">
-          <v-icon small> mdi-close</v-icon>
+        <v-btn icon color="primary" small @click.stop="$set(dialogNoteDelete, item._id, true)">
+          <v-icon small> mdi-delete</v-icon>
         </v-btn>
         <!--just test for 30/01/2023  -->
-        <v-dialog v-model="dialogNoteEdit[item.name]" max-width="290" :key="item.name" dark outlined
-          rounded>
+        <v-dialog v-model="dialogNoteEdit[item.id]" max-width="290" :key="item.id" dark outlined rounded>
           
-        
-        
-        
+
+
+
         </v-dialog>
         <!--  -->
-        <v-dialog v-model="dialogNoteDelete[item.name]" max-width="290" :key="item.name" dark outlined
+        <v-dialog v-model="dialogNoteDelete[item._id]" max-width="350" :key="item._id" dark outlined
           rounded>
           <v-card>
             <v-card-title class="text-h5">
-              Do you want to delete {{item.name}}
+              Do you want to delete <br> {{ item.Lastname }} 
             </v-card-title>
 
             <v-card-text>
-              Make Sure First 
+              Make Sure First
             </v-card-text>
 
             <v-card-actions>
               <v-spacer></v-spacer>
 
-              <v-btn color="green darken-1" text @click.stop="$set(dialogNoteDelete, item.name, false)" outlined rounded >
+              <v-btn color="green darken-1" text @click.stop="$set(dialogNoteDelete, item._id, false)" outlined
+                rounded>
                 Cancel
               </v-btn>
 
-              <v-btn color="green darken-1" text @click.stop="$set(dialogNoteDelete, item.name, false)" outlined rounded >
+              <v-btn color="red darken-1" text @click="deleteEmployer(item)" outlined
+                rounded>
                 Delete
               </v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
-        <v-dialog v-model="dialogNote[item.name]" scrollable lazy max-width="500" :key="item.name" dark outlined
+        <v-dialog v-model="dialogNote[item.id]" scrollable lazy max-width="500" :key="item.id" dark outlined
           rounded>
           <v-card dark :img="require('@/assets/img/bgDrawer.jpg')">
             <v-card style="background-color: transparent;">
               <v-list-item three-line>
                 <v-list-item-content class="pa-5">
-                  <div class="overline mb-5">{{ item.companyjob }}</div>
-                  <v-list-item-title class="headline mb-1"><span>{{ item.name }}</span></v-list-item-title>
-                  <v-list-item-subtitle>Web Developer</v-list-item-subtitle>
+                  <div class="overline mb-5">{{ item.jobs.level }}</div>
+                  <v-list-item-title class="headline mb-1"><span>{{ item.Lastname }}</span></v-list-item-title>
+                  <v-list-item-subtitle>{{ item.jobs.companyjob }}</v-list-item-subtitle>
                 </v-list-item-content>
 
-                <v-avatar :color="getRandomColor()" size="100" class="ml-50">
-                  <img v-if="item.avatar_url" :src="item.avatar_url" />
-                  <span v-else>{{ initials(item.name) }}</span>
+                <v-avatar size="100" class="ml-50">
+                  <img :src="path + item.avatar" />
+
                 </v-avatar>
               </v-list-item>
             </v-card>
@@ -157,7 +164,7 @@
                 </v-list-item-avatar>
 
                 <v-list-item-content>
-                  <v-list-item-title>{{ item.phone }}</v-list-item-title>
+                  <v-list-item-title>{{ item.phoneNumber }}</v-list-item-title>
                 </v-list-item-content>
 
 
@@ -186,7 +193,7 @@
                 </v-list-item-avatar>
 
                 <v-list-item-content>
-                  <v-list-item-title>{{ item.adress }}</v-list-item-title>
+                  <v-list-item-title>{{ item.address }}</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
               <v-divider inset></v-divider>
@@ -216,7 +223,7 @@
 
 
             <v-card-actions>
-              <v-btn flat @click.stop="$set(dialogNote, item.name, false)" outlined rounded text>Close</v-btn>
+              <v-btn flat @click.stop="$set(dialogNote, item.id, false)" outlined rounded text>Close</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -248,7 +255,8 @@ const statusColor = {
 
 };
 
-
+import axios from 'axios';
+import config from '../config';
 import Badge from "./Badge.vue";
 
 export default {
@@ -262,6 +270,13 @@ export default {
   data() {
     return {
       /////////////////////
+      items: [],
+      path: config.api_url,
+      Employers: [],
+      userdata: JSON.parse(localStorage.getItem("user")),
+      ///////////////////////
+      itemToDelete: {},
+      //////////////////////
       messages: [
         {
           avatar: 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460',
@@ -315,228 +330,145 @@ export default {
           value: "avatar",
         },
         {
-          text: "Name",
+          text: "Last name",
           align: "start",
           sortable: false,
-          value: "name",
+          value: "Lastname",
         },
+
         { text: "Email", value: "email" },
-        //{ text: "Points Alltime", value: "pointsalltime" },
-        { text: "Phone", value: "phone", sortable: false },
+
+        { text: "Phone", value: "phoneNumber", sortable: false, },
+        { text: "Address", value: "address", sortable: false, },
         { text: "City", value: "city" },
-        { text: "Company Job", value: "companyjob" },
+        { text: "Level", value: "jobs.level" },
+        { text: "Company Job", value: "jobs.companyjob" },
+        
+
         { text: "", value: "info", sortable: false },
       ],
-      data: [
-        {
-          name: "Roland Hefendehl",
-          email: "Roland@gmail.com",
-          phone: "0651213021",
-          city: "Agadir",
-          adress: "Hay Babsahra Bloc B Rue 19 no.17",
 
-          zipcode: "81001",
-          companyjob: "Senior",
-          points30: 159,
-          pointsalltime: 1000,
-          avatar_url:
-            "http://strafrecht-online.org/personen/roland.hefendehl/IMG_8066.jpg",
-          trend_values: this.getRandomArray(15, 30),
-        },
-        {
-          name: "Lucas Robinson",
-          email: "Roland@gmail.com",
-          phone: "0651213021",
-          city: "Agadir",
-          adress: "Hay Babsahra Bloc B Rue 19 no.17",
-          zipcode: "81001",
-          companyjob: "Trainee",
-          points30: 237,
-          pointsalltime: 500,
-          trend_values: this.getRandomArray(15, 30),
-        },
-        {
-          name: "Isabelle Hall",
-          email: "Roland@gmail.com",
-          phone: "0651213021",
-          city: "Agadir",
-          adress: "Hay Babsahra Bloc B Rue 19 no.17",
-          zipcode: "81001",
-          companyjob: "Junior",
-          points30: 262,
-          pointsalltime: 300,
-          trend_values: this.getRandomArray(15, 30),
-        },
-        {
-          name: "Natalia Gonzales",
-          email: "Gonzales@gmail.com",
-          phone: "0651213021",
-          city: "Agadir",
-          adress: "Hay Babsahra Bloc B Rue 19 no.17",
-          zipcode: "81001",
-          companyjob: "Workin Student",
-          points30: 262,
-          pointsalltime: 300,
-          trend_values: this.getRandomArray(15, 30),
-        },
-        {
-          name: "Nelson Rogers",
-          email: "Rogers@gmail.com",
-          phone: "0651213021",
-          city: "Guelmim",
-          adress: "Hay Babsahra Bloc B Rue 19 no.17",
-          zipcode: "81001",
-          companyjob: "Trainee",
-          points30: 262,
-          pointsalltime: 300,
-          trend_values: this.getRandomArray(15, 30),
-        },
-        {
-          name: "Mira Rosales",
-          email: "Rosales@gmail.com",
-          phone: "0651213021",
-          city: "Agadir",
-          adress: "Hay Babsahra Bloc B Rue 19 no.17",
-          zipcode: "81001",
-          companyjob: "Trainee",
-          points30: 262,
-          pointsalltime: 300,
-          trend_values: this.getRandomArray(15, 30),
-        },
-        {
-          name: "Jack Spencer",
-          email: "Spencer@gmail.com",
-          phone: "0651213021",
-          city: "Laayoune",
-          adress: "Hay Babsahra Bloc B Rue 19 no.17",
-          zipcode: "81001",
-          companyjob: "Working Student",
-          points30: 262,
-          pointsalltime: 300,
-          trend_values: this.getRandomArray(15, 30),
-        },
-        {
-          name: "Benjamin Marsh",
-          email: "Benjamin@gmail.com",
-          phone: "0651213021",
-          city: "Fes",
-          adress: "Hay Babsahra Bloc B Rue 19 no.17",
-          zipcode: "81001",
-          companyjob: "Working Student",
-          points30: 262,
-          pointsalltime: 300,
-          trend_values: this.getRandomArray(15, 30),
-        },
-        {
-          name: "Zac Moss",
-          email: "Zac-moss@gmail.com",
-          phone: "0651213021",
-          city: "Agadir",
-          adress: "Hay Babsahra Bloc B Rue 19 no.17",
-          zipcode: "81001",
-          companyjob: "Trainee",
-          points30: 262,
-          pointsalltime: 300,
-          trend_values: this.getRandomArray(15, 30),
-        },
-        {
-          name: "Ellen Dodson",
-          email: "Roland@gmail.com",
-          phone: "0651213021",
-          city: "Agadir",
-          adress: "Hay Babsahra Bloc B Rue 19 no.17",
-          zipcode: "81001",
-          companyjob: "Trainee",
-          points30: 262,
-          pointsalltime: 300,
-          trend_values: this.getRandomArray(15, 30),
-        },
-        {
-          name: "Sabrina Thomas",
-          email: "Roland@gmail.com",
-          phone: "0651213021",
-          city: "Agadir",
-          adress: "Hay Babsahra Bloc B Rue 19 no.17",
-          zipcode: "81001",
-          companyjob: "Senior",
-          points30: 262,
-          pointsalltime: 300,
-          trend_values: this.getRandomArray(15, 30),
-        },
-        {
-          name: "Danny Cunningham",
-          email: "Roland@gmail.com",
-          phone: "0651213021",
-          city: "Agadir",
-          adress: "Hay Babsahra Bloc B Rue 19 no.17",
-          zipcode: "81001",
-          companyjob: "Junior",
-          points30: 262,
-          pointsalltime: 300,
-          trend_values: this.getRandomArray(15, 30),
-        },
-        {
-          name: "Tanner Lott",
-          email: "Tanner-Lott@gmail.com",
-          phone: "0651213021",
-          city: "Casablanca",
-          adress: "Hay Babsahra Bloc B Rue 19 no.17",
-          zipcode: "81001",
-          companyjob: "Junior",
-          points30: 262,
-          pointsalltime: 300,
-          trend_values: this.getRandomArray(15, 30),
-        },
-        {
-          name: "Jude Pearson",
-          email: "Jude-Pearson@gmail.com",
-          phone: "0651213021",
-          city: "Agadir",
-          adress: "Hay Babsahra Bloc B Rue 19 no.17",
-          zipcode: "81001",
-          companyjob: "Senior",
-          points30: 262,
-          pointsalltime: 300,
-          trend_values: this.getRandomArray(15, 30),
-        },
-
-
-
-      ],
 
     };
   },
   methods: {
-    getColor1(companyjob) {
-      if (companyjob = "Senior") return "red";
-      else if (companyjob = "Junior") return "orange";
-      else if (companyjob = 'Trainee') return "blue";
-      else return "transparent";
+    EmployerDelete( index) {
+        axios.delete('http://localhost:3000/api/employer/delete-employer/'+item._id)
+        .then(response => this.Employers.splice(index, 1));
+      },
+      deleteItem() {
+        console.log('deleteItem', this.itemToDelete)
+        const index = this.Employers.indexOf(this.itemToDelete)
+        
+        /*
+        axios.delete(`https://api.airtable.com/v0/${airTableApp}/${airTableName}/${id}`,
+            { headers: { 
+                Authorization: "Bearer " + apiToken,
+                "Content-Type": "application/json"
+            }
+        }).then((response) => {
+            this.items.splice(index, 1)
+        })
+        */
+        
+        this.Employers.splice(index, 1)
+        
     },
-    getColor(points) {
-      if (points > 500) return "green";
-      else if (points > 300) return "orange";
-      else return "transparent";
-    },
+     
+      deleteEmployer(item) {
+      axios.delete(`http://localhost:3000/api/employer/delete-employer/${item._id}`)
+      .then(response => 
+      
+      console.log(response ),
+      this.Employers.splice(this.Employers.indexOf(item),1),
 
-    initials(fullName) {
-      let arrName = fullName.split(" ");
-      let iniName = fullName.charAt(0);
-      let iniLname = arrName[arrName.length - 1].charAt(0);
-      return iniName + iniLname;
+
+      
+
+      
+      
+      
+      )
+      .catch(error => alert(error)) 
+      
     },
-    getRandomColor() {
-      let colors = ["#34686f", "#dfa288", "#fff5bc", "#9cccae", "#fbffd7"];
-      let rand = Math.floor(Math.random() * colors.length);
-      return colors[rand];
-    },
-    getRandomArray(length, max) {
-      return Array.apply(null, Array(length)).map(function () {
-        return Math.round(Math.random() * max);
+    deleteItem(item) {
+            axios.delete('http://localhost:3000/api/employer/delete-employer/' + item.id)
+                .then(response => {
+                   const index = this.Employers.findIndex(item => item.id === id) // find the post index 
+                   if (~index) // if the post exists in array
+                     this.Employers.splice(index, 1) //delete the post
+                });
+
+        },
+    deleteData: function(item, id) {
+      axios.delete('http://localhost:3000/api/employer/delete-employer' + item.id)
+      .then(response => {
+        this.item.splice(id, 1)
+        console.log(this.item);
       });
     },
- 
+    // getColor1(companyjob) {
+    //   if (companyjob = "Senior") return "red";
+    //   else if (companyjob = "Junior") return "orange";
+    //   else if (companyjob = 'Trainee') return "blue";
+    //   else return "transparent";
+    // },
+    // getColor(points) {
+    //   if (points > 500) return "green";
+    //   else if (points > 300) return "orange";
+    //   else return "transparent";
+    // },
+
+    // initials(fullName) {
+    //   let arrName = fullName.split(" ");
+    //   let iniName = fullName.charAt(0);
+    //   let iniLname = arrName[arrName.length - 1].charAt(0);
+    //   return iniName + iniLname;
+    // },
+    // getRandomColor() {
+    //   let colors = ["#34686f", "#dfa288", "#fff5bc", "#9cccae", "#fbffd7"];
+    //   let rand = Math.floor(Math.random() * colors.length);
+    //   return colors[rand];
+    // },
+    // getRandomArray(length, max) {
+    //   return Array.apply(null, Array(length)).map(function () {
+    //     return Math.round(Math.random() * max);
+    //   });
+    // },
+    // loadItems() {
+    //     this.items = []
+    //     axios.get(`http://localhost:3000/api/employer/employerCompanyByuser/${this.userdata._id}`)
+    //     .then((response) => {
+    //         this.items = response.data.records.map((item)=>{
+    //             return items
+    //         })
+    //     }).catch((error) => {
+    //         console.log(error)
+    //     })
+    // },
+    // loadEmployers(){
+    //     axios.get(`http://localhost:3000/api/employer/employerCompanyByuser/${this.userdata._id}`)
+    //     .then((response) => {
+    //       //Then injecting the result to datatable parameters.
+
+    //       this.Employers = response.data.Employers;
+
+    //     }).catch((error) => {
+    //         console.log(error)
+    //     })
+
+    // }
+
   },
+  //   watch: {
+  //   options: {
+  //     handler() {
+  //       this.loadEmployers();
+  //     },
+  //     deep: true
+  //   },
+  // },
   computed: {
     /*badgeColor() {
       const mappings = {
@@ -548,6 +480,20 @@ export default {
       };
       return mappings[this.data.companyjob] || mappings.default;
     }*/
+  },
+  mounted() {
+    // this.loadItems(),
+    // this.loadEmployers()
+    axios.get(`http://localhost:3000/api/employer/employerCompanyByuser/${this.userdata._id}`)
+      .then((response) => {
+        //Then injecting the result to datatable parameters.
+
+        this.Employers = response.data;
+
+      }).catch((error) => {
+        console.log(error)
+      });
+
   },
   components: {
     Badge
