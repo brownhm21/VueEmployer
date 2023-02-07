@@ -70,17 +70,15 @@
 
                         <v-col cols="12" md="4">
                             <v-text-field label="Company Job" v-model="jobs.company" :rules="requiredRules"
-                                hint="The name is quite enough." prepend-icon="mdi-domain" />
+                                hint="The name is quite enough." prepend-icon="mdi-wallet-travel" />
                         </v-col>
 
-                        <!-- <v-col cols="12" md="4">
-                            <v-autocomplete v-model="jobs.companyName" label="Company Name"
-                                prepend-icon="mdi-domain" :rules="requiredRules"  item-value="_id"
-                             item-text="companyName"
-                             :items="companies" />
-                        </v-col> -->
+                        <v-col cols="12" md="4">
+                            <v-autocomplete v-model="jobs.companyName" label="Company Name" prepend-icon="mdi-domain"
+                                :rules="requiredRules" item-value="_id" item-text="companyName" :items="companies" />
+                        </v-col>
 
-                        
+
 
                         <v-col cols="12" md="4" v-if="jobs.level === 'Trainee'">
                             <v-dialog ref="dialog" v-model="calenderModal" persistent width="290px">
@@ -150,10 +148,16 @@
 
                         <v-col cols="12" md="3">
                             <input class="input" show-size type="file" label="Upload Profile Picture" outlined dense
-                                @change="logoSelected" accept="image/*" />
+                                @change="logoSelected" accept="image/*" color="primary" />
 
 
                         </v-col>
+                        <!-- <v-col cols="12" md="3">
+                            <v-input show-size type="file" label="Upload Profile Picture" outlined dense
+                                @change="logoSelected" accept="image/*" color="primary"  />
+
+
+                        </v-col> -->
                         <!-- <v-col cols="12" md="2">
                             <v-btn flat color="success" @click="onUpload" outlined rounded text>Upload</v-btn>
                         </v-col> -->
@@ -238,9 +242,9 @@
                     </v-row>
                 </v-form>
             </v-container>
-            <!-- <div class="caption mt-10">{{ formData }}</div> -->
-            <div class="caption mt-10">{{ image }}</div>
-            <div class="caption mt-10">{{ companies }}</div>
+            <!-- <div class="caption mt-10">{{ formData }}</div>
+            <div class="caption mt-10">{{ jobs }}</div>
+            <div class="caption mt-10">{{ companies }}</div> -->
 
         </v-main>
     </v-app>
@@ -258,7 +262,7 @@ import api from "@/services/apiService";
 export default {
     name: 'employerAdd',
 
-   
+
 
 
     data: () => ({
@@ -268,6 +272,7 @@ export default {
         jobs: {
             company: '',
             level: '',
+            companyName: '',
             dateRange: null
         },
         firstName: '',
@@ -310,7 +315,7 @@ export default {
         userdata: JSON.parse(localStorage.getItem("user")),
         createdhah: JSON.parse(localStorage.getItem("user"))._id,
         ////////////////////
-        company:0,
+        company: 0,
         companies: [],
         // formData: {
         // },
@@ -342,6 +347,7 @@ export default {
             reader.onload = (e) => {
                 this.imagePreviewURL = e.target.result;
             };
+            this.message = " Image Selected!";
 
         },
         ////////////////////////////////////////////
@@ -359,12 +365,12 @@ export default {
                 })
         },*/
         /////////////get companies
-        getCompanies: function(){
-                axios.get(`http://localhost:3000/api/company/companyUser/${this.userdata._id}`)
-                    .then(function (response) {
-                        this.companies = response.data;
-                    }.bind(this));
-            },
+        getCompanies: function () {
+            axios.get(`http://localhost:3000/api/company/companyUser/${this.userdata._id}`)
+                .then(function (response) {
+                    this.companies = response.data;
+                }.bind(this));
+        },
         /////////////////////////////////////
 
         handleFileChange(event) {
@@ -417,6 +423,7 @@ export default {
             this.image = null;
             this.preview = null;
             this.imageUrl = '';
+            this.imagePreviewURL = '';
             this.message = "Please select an Image!";
 
         },
@@ -424,6 +431,7 @@ export default {
             this.image = null;
             this.preview = null;
             this.imageUrl = '';
+            this.imagePreviewURL = '';
             this.message = "Please select an Image!";
 
             this.previewImage = null
@@ -474,7 +482,7 @@ export default {
             (this.jobs.dateRange != null) ? formData.append("startdate", this.jobs.dateRange[0]) : '';
             (this.jobs.dateRange != null) ? formData.append("endDate", this.jobs.dateRange[1]) : '';
             formData.append("createdByu", this.userdata._id);
-            formData.append("companyBy", '63b2f8a65694b4119b746fcb');
+            formData.append("companyBy", this.jobs.companyName);
             formData.append("file", this.image);
             // console.log(Object.fromEntries(formData));
             // console.log(job);
@@ -484,11 +492,15 @@ export default {
 
             )
                 .then((res) => {
+                    this.$router.push('/employerAdd');
+                    
                     console.log(res);
+                    
                     console.log('Success!')
                     console.log({ response })
                     this.responseSuccess = true;
                     
+
                 })
                 .catch((error) => {
                     console.log(error);
@@ -529,17 +541,17 @@ export default {
         }
     },
     created() {
-    this.fetchOptions();
-  },
-  mounted() {
-    axios.get(`http://localhost:3000/api/company/companyUserr/${this.userdata._id}`)
-      .then(response => {
-        this.companies = response.data;
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  },
+        this.fetchOptions();
+    },
+    mounted() {
+        axios.get(`http://localhost:3000/api/company/companyUserr/${this.userdata._id}`)
+            .then(response => {
+                this.companies = response.data;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    },
     components: {
         Topbar,
         Sidebar,
