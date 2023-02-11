@@ -2,7 +2,7 @@
     <v-app id="inspire">
         <Sidebar :drawer="drawer" />
         <Topbar @drawerEvent="drawer = !drawer" />
-        <v-main class="py-8 px-9" fluid style="background: #f5f5f540">
+        <v-main class="py-8 px-9" fluid >
             <v-container class="pt-10">
                 <div class="dashboard">
                     <v-subheader class="py-0 d-flex justify-space-between rounded-lg">
@@ -352,3 +352,11 @@ export default {
     }
 };
 </script>
+<style scoped>
+.v-main {
+  background-image: url("~@/assets/img/bgMain.png");
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+}
+</style>

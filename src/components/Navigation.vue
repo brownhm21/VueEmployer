@@ -61,7 +61,7 @@
           <v-btn text @click="$vuetify.goTo('#download')">
             <span class="mr-2">Download</span>
           </v-btn>
-          <v-btn text @click="$vuetify.goTo('#pricing')">
+          <v-btn text @click="$router.push('/RegisterView')">
             <span class="mr-2">Prices</span>
           </v-btn>
           <v-btn text @click="$router.push('/Register')">

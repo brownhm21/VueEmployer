@@ -161,24 +161,18 @@ import navigation from "@/components/Navigation.vue";
 import Navbar from '@/components/Navbar.vue';
 import Footer from '@/components/Footer.vue';
 import axios from 'axios';
-
 import Form from '@/mixins/form';
-
-
 import { validationMixin } from "vuelidate";
 import { required, minLength, email, sameAs } from "vuelidate/lib/validators";
-
 export default {
   name: "app-register",
   mixins: [validationMixin, Form],
-
   validations: {
     name: { required, minLength: minLength(4) },
     email: { required, email },
     password: { required, minLength: minLength(6) },
     confirmPassword: { sameAsPassword: sameAs("password") }
   },
-
   data: () => ({
     snackbar: false,
       snackbarText: '',
@@ -198,15 +192,11 @@ export default {
     formLogin: {
       email: null,
       password: null,
-
     }
   }),
-
   props: {
     source: String
   },
-
-
   components: {
     Navbar,
     Footer,
@@ -219,13 +209,11 @@ export default {
         axios.post('http://localhost:3000/api/user/register', this.form)
           .then((response) => {
             console.log(response.data);
-
             /*this.$toast.success('You have been successfully registered!')
             this.$emit('success', response.data);
             /*localStorage.setItem("accessToken",response.data)*/
             this.$router.push({ name: "dashboard" })
             this.error = '';
-
           })
           .catch(err => {
             /*this.handleErrors(err.response.data.errors)
@@ -244,7 +232,6 @@ export default {
           })
       }
     },
-
     login() {
       if (this.$refs.formLogin1.validate()) {
        
@@ -254,15 +241,12 @@ export default {
           .then((response) => {
             console.log(response.data);
             //this.$cookie.set('token',res.data.token);
-
             /*this.$toast.success('You have been successfully registered!')
             /*this.$emit('success', response.data);*/
            localStorage.setItem("accessToken",response.data.token)
            localStorage.setItem("user",JSON.stringify(response.data.user))
-
             this.$router.push("/dashboard");
             this.error = '';
-
           })
           .catch(err => {
             /*this.handleErrors(err.response.data.errors)
@@ -276,7 +260,6 @@ export default {
             this.loading = false
           })
       }
-
     }
   },
   computed: {
@@ -322,12 +305,9 @@ export default {
         (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
       ];
     }
-
   },
-
 }
 </script>
 
 <style lang="css" scoped>
-
 </style>

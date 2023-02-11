@@ -7,10 +7,10 @@
 
 
 
-        <v-main class="py-8 px-6 pt-20" fluid>
+        <v-main class="py-8 px-9 " fluid style="background: #f5f5f540">
             <v-progress-linear :active="formLoading" indeterminate top absolute
                 color="primary accent-4"></v-progress-linear>
-            <v-container>
+            <v-container class="pt-12">
                 <v-form ref="form" v-model="valid" lazy-validation
                     :style="{ background: $vuetify.theme.themes[theme].formBackground }"
                     class="elevation-5 rounded-lg px-5 py-7 pt-20">
@@ -147,8 +147,19 @@
                         </v-col>
 
                         <v-col cols="12" md="3">
-                            <input class="input" show-size type="file" label="Upload Profile Picture" outlined dense
-                                @change="logoSelected" accept="image/*" color="primary" />
+                            <!-- <input class="input" show-size type="file" label="Upload Profile Picture" outlined dense
+                                @change="logoSelected" accept="image/*" color="primary" /> -->
+
+                                <div class="d-flex flex-wrap gap-1">
+                      <v-btn color="primary" @click="$refs.refInputEl?.click()" >
+                        <v-icon icon="mdi-cloud-upload-outline" class="d-sm-none" />
+                        <span class="d-none d-sm-block">Upload new photo</span>
+                      </v-btn>
+
+                      <input ref="refInputEl" type="file" name="file" accept=".jpeg,.png,.jpg,GIF" hidden @change="logoSelected">
+
+                      
+                    </div>
 
 
                         </v-col>
@@ -466,6 +477,10 @@ export default {
 
         },
         /////////////////////////////
+        reset() {
+      this.$refs.form.reset();
+    },
+        //////////////////////////////////////
         submitForm() {
             let job = JSON.parse(JSON.stringify(this.jobs));
             let formData = new FormData();
@@ -493,7 +508,9 @@ export default {
             )
                 .then((res) => {
                     this.$router.push('/employerAdd');
-                    
+                    this.imageUrl = '';
+                    this.imagePreviewURL = '';
+                    this.$refs.form.reset();
                     console.log(res);
                     
                     console.log('Success!')
