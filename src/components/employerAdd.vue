@@ -497,7 +497,7 @@ export default {
             (this.jobs.dateRange != null) ? formData.append("startdate", this.jobs.dateRange[0]) : '';
             (this.jobs.dateRange != null) ? formData.append("endDate", this.jobs.dateRange[1]) : '';
             formData.append("createdByu", this.userdata._id);
-            formData.append("companyBy", this.jobs.companyName);
+            formData.append("company", this.jobs.companyName);
             formData.append("file", this.image);
             // console.log(Object.fromEntries(formData));
             // console.log(job);

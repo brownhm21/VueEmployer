@@ -179,7 +179,7 @@
                         </v-col>
 
                         <v-col cols="12" md="4">
-                          <v-autocomplete v-model="item.jobs.companyName" label="Company Name" prepend-icon="mdi-domain"
+                          <v-autocomplete v-model="item.jobs.company" label="Company Name" prepend-icon="mdi-domain"
                                 :rules="requiredRules" item-value="_id" item-text="companyName" :items="companies" />
                         </v-col>
 

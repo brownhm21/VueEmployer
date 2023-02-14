@@ -346,4 +346,5 @@ export default {
 <style lang="scss">
 @use "../@core/scss/pages/page-auth.scss";
 </style>
+
  
