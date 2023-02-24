@@ -23,7 +23,12 @@
           </v-avatar>
         </v-badge>
 
-      </template> -->
+      </template>
+      <template v-slot:item.fullname="{ item }">
+        <span>{{ getItemText(item) }}</span>
+
+      </template>
+
       <!-- <template v-slot:item.points30="{ item }">
         <v-chip :color="`${project.status}`" :class="`white--text caption my-2`">
           {{ item.points30 }}
@@ -74,8 +79,8 @@
                     <v-card-text class="d-flex ">
 
                       <!-- 👉 Avatar -->
-                      <v-avatar 
-                       rounded="lg" size="100" class="me-6" color="primary" ><img :src="path + item.avatar" /></v-avatar>
+                      <v-avatar rounded="lg" size="100" class="me-6" color="primary"><img
+                          :src="path + item.avatar" /></v-avatar>
 
                       <!-- 👉 Upload Photo -->
 
@@ -101,10 +106,10 @@
                     <v-card-text>
                       <v-row>
                         <v-col cols="12">
-                        <div class="headline">Employer Infos</div>
-                      </v-col>
+                          <div class="headline">Employer Infos</div>
+                        </v-col>
                       </v-row>
-                      
+
                       <v-row>
 
                         <!-- 👉 First Name -->
@@ -153,8 +158,8 @@
 
                         <!-- 👉 Zip Code -->
                         <v-col cols="12" md="6">
-                          <v-text-field label="Zip Code" v-model="item.zipcode" outlined counter="5" :rules="numberRules"
-                            prepend-inner-icon="mdi-map" />
+                          <v-text-field label="Zip Code" v-model="item.zipcode" outlined counter="5"
+                            :rules="numberRules" prepend-inner-icon="mdi-map" />
 
                         </v-col>
 
@@ -175,37 +180,49 @@
 
                         <v-col cols="12" md="4">
                           <v-text-field label="Company Job" :rules="requiredRules" hint="The name is quite enough."
-                            prepend-icon="mdi-wallet-travel" v-model="item.jobs.companyjob"/>
+                            prepend-icon="mdi-wallet-travel" v-model="item.jobs.companyjob" />
                         </v-col>
 
                         <v-col cols="12" md="4">
                           <v-autocomplete v-model="item.jobs.company" label="Company Name" prepend-icon="mdi-domain"
-                                :rules="requiredRules" item-value="_id" item-text="companyName" :items="companies" />
+                            :rules="requiredRules" item-value="_id" item-text="companyName" :items="companies" />
                         </v-col>
 
-                        <v-col cols="12" md="4" v-if="item.jobs.level === 'Trainee'">
-                          <v-dialog ref="dialog" v-model="item.jobs.calenderModal" persistent width="290px">
+                        <v-col cols="12" sm="6" md="3" v-if="item.jobs.level === 'Trainee'">
+                          <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40"
+                            transition="scale-transition" offset-y min-width="290px">
                             <template v-slot:activator="{ on, attrs }">
-                              <v-text-field v-model="item.jobs.dateRange" label="Employment period" prepend-icon="mdi-calendar"
-                                readonly v-bind="attrs" v-on="on" :rules="requiredRules"></v-text-field>
+                              <v-text-field v-model="item.jobs.startdate" label="Start Date" prepend-icon="event"
+                                v-bind="attrs" v-on="on"></v-text-field>
                             </template>
-                            <v-date-picker v-model="item.jobs.dateRange" type="month" range>
-                              <v-spacer></v-spacer>
-                              <v-btn text color="primary" @click="(calenderModal = false); (dateRange = null);">
-                                Cancel
-                              </v-btn>
-                              <v-btn text color="primary" @click="validateDate(dateRange)">
-                                Save
-                              </v-btn>
-                            </v-date-picker>
-                          </v-dialog>
+                            <v-date-picker v-model="item.jobs.startdate" @input="menu2 = false"></v-date-picker>
+                          </v-menu>
+                          <!--  -->
+
+                        </v-col>
+                        <v-col cols="12" md="3" v-if="item.jobs.level === 'Trainee'">
+                          <v-menu v-model="menu3" :close-on-content-click="false" :nudge-right="40"
+                            transition="scale-transition" offset-y min-width="290px">
+                            <template v-slot:activator="{ on, attrs }">
+                              <v-text-field v-model="item.jobs.endDate" label="End Date" prepend-icon="event"
+                                v-bind="attrs" v-on="on"></v-text-field>
+                            </template>
+                            <v-date-picker v-model="item.jobs.endDate"></v-date-picker>
+                          </v-menu>
+
+
+
+
+
+
+
                         </v-col>
 
                       </v-row>
                       <v-divider />
                       <v-row class="mt-2">
                         <v-col cols="12" class="d-flex flex-wrap gap-4">
-                          <v-btn>Save changes</v-btn>
+                          <v-btn color="primary" @click="submitEditForm(item)">Save changes</v-btn>
 
                           <v-btn color="secondary" variant="tonal" type="reset" @click.prevent="reset">
                             Reset
@@ -260,7 +277,9 @@
               <v-list-item three-line>
                 <v-list-item-content class="pa-5">
                   <div class="overline mb-5">{{ item.jobs.level }}</div>
-                  <v-list-item-title class="headline mb-1"><span>{{ item.Lastname }}</span></v-list-item-title>
+                  <v-list-item-title class="headline mb-1"><span>{{ item.Firstname }} {{
+                    item.Lastname
+                  }}</span></v-list-item-title>
                   <v-list-item-subtitle>{{ item.jobs.companyjob }}</v-list-item-subtitle>
                 </v-list-item-content>
 
@@ -311,7 +330,7 @@
                 </v-list-item-avatar>
 
                 <v-list-item-content>
-                  <v-list-item-title>{{ item.jobs.startdate }} / {{ item.jobs.startdate }} </v-list-item-title>
+                  <v-list-item-title>{{ item.jobs.startdate }} / {{ item.jobs.endDate }} </v-list-item-title>
                 </v-list-item-content>
 
               </v-list-item>
@@ -433,6 +452,7 @@ const statusColor = {
 import axios from 'axios';
 import config from '../config';
 import Badge from "./Badge.vue";
+import Swal from "sweetalert2";
 
 export default {
   name: "leaderboard",
@@ -445,6 +465,11 @@ export default {
   data() {
     return {
       /////////////////////
+      menu: false,
+      modal: false,
+      menu2: false,
+      menu3: false,
+      /////////////////
       positions: [
         "Trainee",
         "Working Student",
@@ -520,10 +545,10 @@ export default {
           value: "avatar",
         },
         {
-          text: "Last name",
+          text: "Full name",
           align: "start",
           sortable: false,
-          value: "Lastname",
+          value: "fullname",
         },
 
         { text: "Email", value: "email" },
@@ -537,11 +562,26 @@ export default {
 
         { text: "", value: "info", sortable: false },
       ],
+      requiredRules: [(v) => !!v || "Please fill out this field!"],
+      numberRules: [
+        (v) => !!v || "Please fill out this field!",
+        (v) => Number.isInteger(Number(v)) || "Please enter numbers only!"
+      ],
+      emailRules: [
+        (v) => !!v || "Please fill out the field!",
+        (v) =>
+          !v ||
+          /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
+          "E-mail must be valid"
+      ],
 
 
     };
   },
   methods: {
+    getItemText(item) {
+      return `${item.Firstname} ${item.Lastname}`;
+    },
     reset() {
       this.$refs.form.reset();
     },
@@ -609,8 +649,76 @@ export default {
           this.Employers1 = response.data;
         })
     },
+    Range(item) {
+      return `${item.jobs.startdate} `;
+    },
+    submitEditForm(item) {
+      console.log(item)
+      // let job = JSON.parse(JSON.stringify(this.jobs));
+      let formData = new FormData();
+      formData.append("Firstname", item.Firstname);
+      formData.append("Lastname", item.Lastname);
+      formData.append("email", item.email);
+      formData.append("phoneNumber", item.phoneNumber);
 
-    
+      formData.append("address", item.address);
+      formData.append("city", item.city);
+      formData.append("zipcode", item.zipcode);
+      formData.append("jobs.level", item.jobs.level);
+      formData.append("jobs.companyjob", item.jobs.companyjob);
+      // (this.jobs.dateRange != null) ? formData.append("startdate", this.jobs.dateRange[0]) : '';
+      // (this.jobs.dateRange != null) ? formData.append("endDate", this.jobs.dateRange[1]) : '';
+      (item.jobs.startdate != null) ? formData.append("jobs.startdate", item.jobs.startdate) : '';
+      (item.jobs.endDate != null) ? formData.append("jobs.endDate", item.jobs.endDate) : '';
+
+      // formData.append("createdByu", item.userdata._id);
+      formData.append("company", item.jobs.companyName);
+      formData.append("file", item.image);
+      console.log(Object.fromEntries(formData));
+      // console.log(job);
+
+      Swal.fire({
+        title: 'Do you want to save the changes?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+        denyButtonText: `Don't save`,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          axios.patch(`http://localhost:3000/api/employer/update-employerr/${item._id}`,
+        formData,
+
+      ).then(res => {
+        Swal.fire('Saved!', '', 'success')
+        
+        console.log(res);
+
+
+
+
+      })
+        .catch(err => {
+          Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+
+
+                    })
+          console.log(err)
+
+
+        });
+
+
+        } else if (result.isDenied) {
+          Swal.fire('Changes are not saved', '', 'info')
+        }
+      })
+    },
+
+
 
     // getColor1(companyjob) {
     //   if (companyjob = "Senior") return "red";
@@ -684,6 +792,17 @@ export default {
       };
       return mappings[this.data.companyjob] || mappings.default;
     }*/
+    // fullDate: {
+    //   get(item) {
+    //     return `${this.firstName} ${this.lastName}`;
+    //   },
+    //   set(newValue) {
+    //     const m = newValue.match(/(\S*)\s+(.*)/);
+
+    //     this.firstName = m[1];
+    //     this.lastName = m[2];
+    //   }
+    // }
   },
   mounted() {
     // this.loadItems(),

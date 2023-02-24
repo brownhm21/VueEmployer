@@ -171,6 +171,8 @@
       if (action === "test") {
         alert('TEST!!')
       } else if (action === "logout") {
+
+      
         localStorage.clear();
         this.$router.push('/Register');
         alert('LOGOUT!!')
