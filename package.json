@@ -16,11 +16,13 @@
     "vue-material-design-icons": "^5.1.2",
     "vue-picture-input": "^2.4.0",
     "vue-router": "^3.5.1",
+    "vue-sweetalert2": "^5.0.5",
     "vue-toast-notification": "^0.6.3",
     "vue-youtube-embed": "^2.2.2",
     "vuedraggable": "^2.24.3",
     "vuelidate": "^0.7.7",
     "vuetify": "^2.6.0",
+    "vuetify-datetime-picker": "^2.1.1",
     "vuetify-toast-snackbar": "^0.6.1",
     "vuex": "^3.6.2"
   },

@@ -80,7 +80,7 @@
 
 
 
-                        <v-col cols="12" md="4" v-if="jobs.level === 'Trainee'">
+                        <!-- <v-col cols="12" md="4" v-if="jobs.level === 'Trainee'">
                             <v-dialog ref="dialog" v-model="calenderModal" persistent width="290px">
                                 <template v-slot:activator="{ on, attrs }">
                                     <v-text-field v-model="jobs.dateRange" label="Employment period"
@@ -98,6 +98,36 @@
                                     </v-btn>
                                 </v-date-picker>
                             </v-dialog>
+                        </v-col> -->
+                        <v-col  cols="12" sm="6" md="3" v-if="jobs.level === 'Trainee'">
+                            <v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40"
+                                transition="scale-transition" offset-y min-width="290px">
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field v-model="jobs.dateStart" label="Start Date" prepend-icon="event"
+                                        readonly v-bind="attrs" v-on="on"></v-text-field>
+                                </template>
+                                <v-date-picker v-model="jobs.dateStart"></v-date-picker>
+                               
+                            </v-menu>
+                            <!--  -->
+                            
+                        </v-col>
+                        <v-col cols="12" sm="6" md="3" v-if="jobs.level === 'Trainee'">
+                            <v-menu v-model="menu3" :close-on-content-click="false" :nudge-right="40"
+                                transition="scale-transition" offset-y min-width="290px">
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field v-model="jobs.dateEnds" label="End Date" prepend-icon="event"
+                                        readonly v-bind="attrs" v-on="on"></v-text-field>
+                                </template>
+                                <v-date-picker v-model="jobs.dateEnds" @input="menu3 = false"></v-date-picker>
+                            </v-menu>
+
+
+
+
+
+
+
                         </v-col>
 
                         <!-------
@@ -150,16 +180,17 @@
                             <!-- <input class="input" show-size type="file" label="Upload Profile Picture" outlined dense
                                 @change="logoSelected" accept="image/*" color="primary" /> -->
 
-                                <div class="d-flex flex-wrap gap-1">
-                      <v-btn color="primary" @click="$refs.refInputEl?.click()" >
-                        <v-icon icon="mdi-cloud-upload-outline" class="d-sm-none" />
-                        <span class="d-none d-sm-block">Upload new photo</span>
-                      </v-btn>
+                            <div class="d-flex flex-wrap gap-1">
+                                <v-btn color="primary" @click="$refs.refInputEl?.click()">
+                                    <v-icon icon="mdi-cloud-upload-outline" class="d-sm-none" />
+                                    <span class="d-none d-sm-block">Upload new photo</span>
+                                </v-btn>
 
-                      <input ref="refInputEl" type="file" name="file" accept=".jpeg,.png,.jpg,GIF" hidden @change="logoSelected">
+                                <input ref="refInputEl" type="file" name="file" accept=".jpeg,.png,.jpg,GIF" hidden
+                                    @change="logoSelected">
 
-                      
-                    </div>
+
+                            </div>
 
 
                         </v-col>
@@ -269,6 +300,7 @@ import UploadImage from "@/components/UploadImage.vue";
 import UpImage from "@/components/UpImage.vue";
 import axios from 'axios';
 import api from "@/services/apiService";
+import Swal from "sweetalert2";
 
 export default {
     name: 'employerAdd',
@@ -277,6 +309,26 @@ export default {
 
 
     data: () => ({
+        masks: {
+            input: 'YYYY-MM-DD',
+        },
+        today: new Date(),
+        dateEnds: null,
+        dateStart: null,
+        textFieldProps: {
+            prependIcon: 'mdi-calendar',
+            color: 'primary'
+        },
+        datePickerProps: {
+            scrollable: true,
+            color: 'green darken-3'
+        },
+        // date: new Date().toISOString().substr(0, 10),
+    menu: false,
+    modal: false,
+    menu2: false,
+    menu3: false,
+
         ////////////for image upload
         image: '',
         createdByu: (JSON.parse(localStorage.getItem("user"))._id) ? { "_id": JSON.parse(localStorage.getItem("user"))._id } : null,
@@ -284,7 +336,10 @@ export default {
             company: '',
             level: '',
             companyName: '',
-            dateRange: null
+            // dateRange: null
+            // test
+        dateEnds: null,
+        dateStart: null,
         },
         firstName: '',
         lastName: '',
@@ -478,8 +533,8 @@ export default {
         },
         /////////////////////////////
         reset() {
-      this.$refs.form.reset();
-    },
+            this.$refs.form.reset();
+        },
         //////////////////////////////////////
         submitForm() {
             let job = JSON.parse(JSON.stringify(this.jobs));
@@ -494,8 +549,11 @@ export default {
             formData.append("zipcode", this.zipcode);
             formData.append("level", this.jobs.level);
             formData.append("companyjob", this.jobs.company);
-            (this.jobs.dateRange != null) ? formData.append("startdate", this.jobs.dateRange[0]) : '';
-            (this.jobs.dateRange != null) ? formData.append("endDate", this.jobs.dateRange[1]) : '';
+            // (this.jobs.dateRange != null) ? formData.append("startdate", this.jobs.dateRange[0]) : '';
+            // (this.jobs.dateRange != null) ? formData.append("endDate", this.jobs.dateRange[1]) : '';
+            (this.jobs.dateStart != null) ? formData.append("startdate", this.jobs.dateStart) : '';
+            (this.jobs.dateEnds != null) ? formData.append("endDate", this.jobs.dateEnds) : '';
+
             formData.append("createdByu", this.userdata._id);
             formData.append("company", this.jobs.companyName);
             formData.append("file", this.image);
@@ -505,23 +563,35 @@ export default {
             axios.post('http://localhost:3000/api/employer/employerImage',
                 formData,
 
-            )
-                .then((res) => {
-                    this.$router.push('/employerAdd');
-                    this.imageUrl = '';
-                    this.imagePreviewURL = '';
-                    this.$refs.form.reset();
-                    console.log(res);
-                    
-                    console.log('Success!')
-                    console.log({ response })
-                    this.responseSuccess = true;
-                    
+            ).then(res => {
+                console.log(res);
+                Swal.fire({
+
+                    icon: 'success',
+                    title: 'Your Employer has been saved successfully',
+                    text: res.data.data,
+                    showConfirmButton: true,
 
                 })
-                .catch((error) => {
-                    console.log(error);
+                this.imageUrl = '';
+                this.imagePreviewURL = '';
+                this.message = false;
+                this.$refs.form.reset();
+
+
+            })
+                .catch(err => {
+                    console.log(err)
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+
+
+                    })
+
                 });
+
         },
         ////////////////////////////////
 
@@ -555,7 +625,22 @@ export default {
     computed: {
         theme() {
             return this.$vuetify.theme.dark ? "dark" : "light";
-        }
+        },
+        dateStartFormat() {
+            if (this.dateStart) {
+                return format(this.dateStart, 'yyyy-MM-dd')
+            } else {
+                return null
+            }
+        },
+        dateEndsFormat() {
+            if (this.dateEnds) {
+                return format(this.dateEnds, 'yyyy-MM-dd')
+            } else {
+                return null
+            }
+        },
+
     },
     created() {
         this.fetchOptions();
