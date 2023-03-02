@@ -69,6 +69,7 @@
 
 <script>
 import axios from 'axios';
+import Swal from "sweetalert2";
 
 export default {
 
@@ -121,28 +122,72 @@ export default {
             if (this.$refs.form.validate()) {
                 //this.loading = true;
                 console.log('object', this.companie);
-                axios.patch(`http://localhost:3000/api/company/update-company/${this.companie._id}`,
+                // axios.patch(`http://localhost:3000/api/company/update-company/${this.companie._id}`,
+                //     {
+                //         companyName: this.companie.companyName,
+                //         phoneNumber: this.companie.phoneNumber,
+                //         companyAdress: this.companie.companyAdress,
+                //         companyCity: this.companie.companyCity,
+                //     })
+                //     .then((response) => {
+                //         console.log(response.data);
+
+
+
+
+
+                //     })
+                //     .catch(err => {
+                //         console.log('error');
+                //     })
+                //     .then(() => {
+                //         this.loading = false
+                //     })
+
+                    Swal.fire({
+        title: 'Do you want to save the changes?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+        denyButtonText: `Don't save`,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+            axios.patch(`http://localhost:3000/api/company/update-company/${this.companie._id}`,
                     {
                         companyName: this.companie.companyName,
                         phoneNumber: this.companie.phoneNumber,
                         companyAdress: this.companie.companyAdress,
                         companyCity: this.companie.companyCity,
+                    }).then(res => {
+        Swal.fire('Saved!', '', 'success')
+        
+        console.log(res);
+
+
+
+
+      })
+        .catch(err => {
+          Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+
+
                     })
-                    .then((response) => {
-                        console.log(response.data);
+          console.log(err)
 
 
+        });
 
 
-
-                    })
-                    .catch(err => {
-                        console.log('error');
-                    })
-                    .then(() => {
-                        this.loading = false
-                    })
-            }
+        } else if (result.isDenied) {
+          Swal.fire('Changes are not saved', '', 'info')
+        }
+      })
+            
+                }
         },
         reset() {
             this.$refs.form.reset();

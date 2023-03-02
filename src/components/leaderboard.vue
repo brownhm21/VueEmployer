@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <v-data-table :headers="headers" :items="Employers" class="elevation-1" :items-per-page="5" :loading="loadTable"
+   
+    <v-data-table :headers="headers" :items="Employers" class="elevation-1" :search="search" :items-per-page="5" :loading="loadTable"
       loading-text="Loading Leaderboard... Please wait">
       <template v-slot:item.avatar="{ item }">
         <v-badge avatar bordered overlap>
@@ -70,7 +71,7 @@
           <v-icon small> mdi-delete</v-icon>
         </v-btn>
         <!--just test for 30/01/2023  -->
-        <v-dialog v-model="dialogNoteEdit[item._id]" scrollable lazy :key="item._id" dark outlined rounded>
+        <v-dialog v-model="dialogNoteEdit[item._id]"  :key="item._id" dark outlined rounded >
           <template>
             <v-row>
               <v-form ref="form" class="d-flex flex-column justify-center gap-5">
@@ -456,14 +457,10 @@ import Swal from "sweetalert2";
 
 export default {
   name: "leaderboard",
-  /* props: {
-     data: {
-       type: Object,
-       default: () => ({})
-     }
-   },*/
+ 
   data() {
     return {
+      search:'',
       /////////////////////
       menu: false,
       modal: false,
@@ -658,7 +655,7 @@ export default {
       let formData = new FormData();
       formData.append("Firstname", item.Firstname);
       formData.append("Lastname", item.Lastname);
-      formData.append("email", item.email);
+      //formData.append("email", item.email);
       formData.append("phoneNumber", item.phoneNumber);
 
       formData.append("address", item.address);
