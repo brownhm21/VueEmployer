@@ -6,9 +6,7 @@ import vuetify from './plugins/vuetify'
 import VueCookie from 'vue-cookie'
 import http from './axios'
 import VueYouTubeEmbed from 'vue-youtube-embed'
-import DatetimePicker from "vuetify-datetime-picker";
 
-Vue.use(DatetimePicker);
 Vue.use(VueYouTubeEmbed)
 Vue.config.productionTip = false
 Vue.prototype.$http= http

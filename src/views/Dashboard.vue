@@ -2,7 +2,7 @@
     <v-app id="inspire">
         <Sidebar :drawer="drawer" />
         <Topbar @drawerEvent="drawer = !drawer" />
-        <v-main class="py-8 px-9" fluid >
+        <v-main class="py-8 px-9" fluid>
             <v-container class="pt-10">
                 <div class="dashboard">
                     <v-subheader class="py-0 d-flex justify-space-between rounded-lg">
@@ -20,7 +20,7 @@
                             <v-alert dense text type="success" :value="alert">
                                 Login Successfully! Welcome to <strong>{{ user.name }}</strong>
                             </v-alert>
-                            <v-row>
+                            <!-- <v-row>
                                 <v-col lg="6" cols="12" v-for="(item, index) in activityLog" :key="index">
                                     <v-card elevation="2" class="rounded-lg">
                                         <v-card-text class="d-flex justify-space-between align-center">
@@ -29,7 +29,62 @@
                                                 <span>Last 3 weeks</span>
                                             </div>
                                             <v-avatar size="60" :color="item.color" style="border: 3px solid #444">
-                                                <span style="color: white">{{ item.amount }} +</span>
+                                                <span style="color: white">{{ Employers }} +</span>
+                                            </v-avatar>
+                                        </v-card-text>
+                                        <v-card-actions class="d-flex justify-space-between">
+
+
+                                        </v-card-actions>
+                                    </v-card>
+                                </v-col>
+
+                                
+                            </v-row> -->
+                            <v-row>
+                                <v-col lg="6" cols="12">
+                                    <v-card elevation="2" class="rounded-lg">
+                                        <v-card-text class="d-flex justify-space-between align-center">
+                                            <div>
+                                                <strong>Total Employers</strong> <br>
+                                                <span>Last 3 weeks</span>
+                                            </div>
+                                            <v-avatar size="60" color="cyan lighten-3" style="border: 3px solid #444">
+                                                <span style="color: white">+ {{ Employers }}</span>
+                                            </v-avatar>
+                                        </v-card-text>
+                                        <v-card-actions class="d-flex justify-space-between">
+
+
+                                        </v-card-actions>
+                                    </v-card>
+                                </v-col>
+                                <v-col lg="6" cols="12">
+                                    <v-card elevation="2" class="rounded-lg">
+                                        <v-card-text class="d-flex justify-space-between align-center">
+                                            <div>
+                                                <strong>Total Trainees</strong> <br>
+                                                <span>Last 3 weeks</span>
+                                            </div>
+                                            <v-avatar size="60" color="green darken-2" style="border: 3px solid #444">
+                                                <span style="color: white">{{ Trainees }}</span>
+                                            </v-avatar>
+                                        </v-card-text>
+                                        <v-card-actions class="d-flex justify-space-between">
+
+
+                                        </v-card-actions>
+                                    </v-card>
+                                </v-col>
+                                <v-col lg="6" cols="12">
+                                    <v-card elevation="2" class="rounded-lg">
+                                        <v-card-text class="d-flex justify-space-between align-center">
+                                            <div>
+                                                <strong>Total of Working Student</strong> <br>
+                                                <span>Last 3 weeks</span>
+                                            </div>
+                                            <v-avatar size="60" color="deep-orange darken-1" style="border: 3px solid #444">
+                                                <span style="color: white">+ {{ WorkingStudent }}</span>
                                             </v-avatar>
                                         </v-card-text>
                                         <v-card-actions class="d-flex justify-space-between">
@@ -68,23 +123,32 @@
                                 </v-card-text>
                             </v-card>
                         </v-col>
-                        
-                        
+
+
 
                         <v-row>
-          <v-col>
-            <leaderboard />
-          </v-col>
-        </v-row>
+                            <v-col>
+                                <leaderboard />
+                            </v-col>
+                        </v-row>
+
+                        <v-row>
+                            <v-col>
+                                {{Employers}}
+                            </v-col>
+                            <v-col>
+                                {{ Trainees }}
+                            </v-col>
+                        </v-row>
 
 
 
 
                     </v-row>
                 </div>
-              
 
-                
+
+
             </v-container>
         </v-main>
     </v-app>
@@ -107,43 +171,46 @@ export default {
             name: '',
             email: '',
             user: JSON.parse(localStorage.getItem("user")),
+            Employers: 0,
+            Trainees:0,
+            WorkingStudent:0,
 
             //////////////////////////////////////////////////
-/*
-            clipped: true,
-        drawer: true,
-        fixed: false,
-        items: [
-          { icon: 'bubble_chart', title: 'Inspire' }
-        ],
-        miniVariant: false,
-        right: true,
-        rightDrawer: false,
-        title: 'Vuetify.js',
-        dialog: false,
-         editedIndex: -1,
-        editedItem: {
-          name: '',
-          calories: 0,
-          fat: 0,
-          carbs: 0,
-          protein: 0
-        },
-        defaultItem: {
-          name: '',
-          calories: 0,
-          fat: 0,
-          carbs: 0,
-          protein: 0
-        },
-        listPrimitive: null,
-        */
+            /*
+                        clipped: true,
+                    drawer: true,
+                    fixed: false,
+                    items: [
+                      { icon: 'bubble_chart', title: 'Inspire' }
+                    ],
+                    miniVariant: false,
+                    right: true,
+                    rightDrawer: false,
+                    title: 'Vuetify.js',
+                    dialog: false,
+                     editedIndex: -1,
+                    editedItem: {
+                      name: '',
+                      calories: 0,
+                      fat: 0,
+                      carbs: 0,
+                      protein: 0
+                    },
+                    defaultItem: {
+                      name: '',
+                      calories: 0,
+                      fat: 0,
+                      carbs: 0,
+                      protein: 0
+                    },
+                    listPrimitive: null,
+                    */
             ////////////////////////////////////////////
             cards: ["Today", "Yesterday"],
             drawer: null,
             activityLog: [
                 { title: 'Total Trainees', amount: 50, icon: 'mdi-account', color: 'cyan lighten-3' },
-                { title: 'Total Employers', amount: 3433, icon: 'mdi-account-group-outline', color: 'green darken-2' },
+                { title: 'Total Employers', amount: 50, icon: 'mdi-account-group-outline', color: 'green darken-2' },
                 { title: 'Total Notes', amount: 3433, icon: 'mdi-account-group-outline', color: 'blue-grey darken-1' },
                 {
                     title: 'Pending Notes',
@@ -152,8 +219,8 @@ export default {
                     color: 'deep-orange darken-1'
                 },
             ],
-            
-            
+
+
         }
     },
     created() {
@@ -167,9 +234,53 @@ export default {
             .then(res => {
                 this.name = res.data.user.name;
                 this.email = res.data.user.email;
-            })
+            });
+            this.EmployerCount();
+            this.TraineesCount();
+            this.WorkingStudentCount();
+       
     },
     methods: {
+        /////////////////////////
+        EmployerCount(){
+            this.$http.get(`http://localhost:3000/api/employer/EmployerUserr/${this.user._id}`)
+            .then((response) => {
+                //Then injecting the result to datatable parameters.
+
+                this.Employers = response.data;
+
+
+            }).catch((error) => {
+                console.log(error)
+            });
+            
+        },
+        WorkingStudentCount(){
+            this.$http.get(`http://localhost:3000/api/employer/EmployerUserrrr/${this.user._id}`)
+            .then((response) => {
+                //Then injecting the result to datatable parameters.
+
+                this.WorkingStudent = response.data;
+
+
+            }).catch((error) => {
+                console.log(error)
+            });
+            
+        },
+        TraineesCount(){
+            this.$http.get(`http://localhost:3000/api/employer/EmployerUserrr/${this.user._id}`)
+            .then((response) => {
+                //Then injecting the result to datatable parameters.
+
+                this.Trainees = response.data;
+
+
+            }).catch((error) => {
+                console.log(error)
+            });
+            
+        },
         logout() {
             localStorage.clear();
             this.$router.push('/Register');
@@ -178,63 +289,63 @@ export default {
             console.log('click on ' + item.no)
         },
 
-        
+
         subscribeToUpdate() {
-          this.listPrimitive.onItemAdded(item => {
-            this.desserts.push(item.value)
-          })
+            this.listPrimitive.onItemAdded(item => {
+                this.desserts.push(item.value)
+            })
 
-          this.listPrimitive.onItemUpdated(item => {
-            //update the item at item.index
-            this.desserts.splice(item.index, 1, item.value);
-          })
+            this.listPrimitive.onItemUpdated(item => {
+                //update the item at item.index
+                this.desserts.splice(item.index, 1, item.value);
+            })
 
-          this.listPrimitive.onItemRemoved(item => {
-            //remove the item at item.index
-            this.desserts.splice(item.index, 1);
-          })
+            this.listPrimitive.onItemRemoved(item => {
+                //remove the item at item.index
+                this.desserts.splice(item.index, 1);
+            })
         },
 
         editItem(item) {
-          this.editedIndex = this.desserts.indexOf(item)
-          this.editedItem = Object.assign({}, item)
-          this.dialog = true
+            this.editedIndex = this.desserts.indexOf(item)
+            this.editedItem = Object.assign({}, item)
+            this.dialog = true
         },
 
         deleteItem(item) {
-          const index = this.desserts.indexOf(item)
-          confirm('Are you sure you want to delete this item?') && this.listPrimitive.remove(index)
+            const index = this.desserts.indexOf(item)
+            confirm('Are you sure you want to delete this item?') && this.listPrimitive.remove(index)
         },
 
         close() {
-          this.dialog = false
-          setTimeout(() => {
-            this.editedItem = Object.assign({}, this.defaultItem)
-            this.editedIndex = -1
-          }, 300)
+            this.dialog = false
+            setTimeout(() => {
+                this.editedItem = Object.assign({}, this.defaultItem)
+                this.editedIndex = -1
+            }, 300)
         },
 
         save() {
-          if (this.editedIndex > -1) {
-            this.listPrimitive.update(this.editedIndex, this.editedItem)
-          } else {
-            this.listPrimitive.add(this.editedItem)
-          }
+            if (this.editedIndex > -1) {
+                this.listPrimitive.update(this.editedIndex, this.editedItem)
+            } else {
+                this.listPrimitive.add(this.editedItem)
+            }
 
-          this.close()
+            this.close()
         }
     },
     computed: {
         formTitle() {
-          return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+            return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
         }
-      },
+    },
 
-      watch: {
+    watch: {
         dialog(val) {
-          val || this.close()
+            val || this.close()
         }
-      },
+    },
 
 
     components: {
@@ -247,9 +358,9 @@ export default {
 </script>
 <style scoped>
 .v-main {
-  background-image: url("~@/assets/img/bgMain.png");
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
+    background-image: url("~@/assets/img/bgMain.png");
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
 }
 </style>
