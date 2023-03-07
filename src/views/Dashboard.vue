@@ -67,7 +67,7 @@
                                                 <span>Last 3 weeks</span>
                                             </div>
                                             <v-avatar size="60" color="green darken-2" style="border: 3px solid #444">
-                                                <span style="color: white">{{ Trainees }}</span>
+                                                <span style="color: white">+{{ Trainees }}</span>
                                             </v-avatar>
                                         </v-card-text>
                                         <v-card-actions class="d-flex justify-space-between">
@@ -127,18 +127,15 @@
 
 
                         <v-row>
-                            <v-col>
+                            <v-col class="pt-10">
                                 <leaderboard />
                             </v-col>
                         </v-row>
 
                         <v-row>
-                            <v-col>
-                                {{Employers}}
-                            </v-col>
-                            <v-col>
-                                {{ Trainees }}
-                            </v-col>
+                           <v-col class="pt-10">
+
+                           </v-col>
                         </v-row>
 
 
@@ -150,6 +147,7 @@
 
 
             </v-container>
+            <jurcoachcards />
         </v-main>
     </v-app>
 </template>
@@ -160,6 +158,7 @@ import leaderboard from "@/components/leaderboard.vue";
 import Footer from '@/components/Footer.vue';
 import Sidebar from "@/components/Sidebar.vue";
 import Topbar from "@/components/Topbar.vue";
+import jurcoachcards from "@/components/jurcoachcards";
 import axios from 'axios';
 
 
@@ -353,6 +352,7 @@ export default {
         Topbar,
         Sidebar,
         leaderboard,
+        jurcoachcards,
     }
 };
 </script>
