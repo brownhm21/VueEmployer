@@ -92,7 +92,7 @@ export default defineComponent({
 }
 
 .left-testimonials {
-  color: #fff;
+  color: #b2b2b2;
   font-weight: bold;
   text-transform: uppercase;
 

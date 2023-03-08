@@ -1,9 +1,9 @@
 <template>
-    <v-app id="inspire">
-        <v-main>
-            <div class="d-flex align-center justify-center pa-4 pt-20 ">
-      <v-card class="auth-card pa-4 pt-7" width="500"  elevation="15">
-      <!-- <v-card-item>
+  <v-app id="inspire">
+    <v-main>
+      <div class="d-flex align-center justify-center pa-4 pt-20 ">
+        <v-card class="auth-card pa-4 pt-7" width="500" elevation="15">
+          <!-- <v-card-item>
         <template >
           <div class="d-flex">
             <v-avatar><img src="@/assets/img/logo_copy.svg" /></v-avatar>
@@ -16,118 +16,98 @@
         </v-card-title>
 
       </v-card-item> -->
-      <v-card-title class=" justify-center " height="100">
-        <v-avatar rounded="lg" size="100"  ><img src="@/assets/img/logo_copy.svg" /></v-avatar>
-        <span class="text-center text-base font-weight-semibold text-2xl text-uppercase ">Employerella</span>
-      </v-card-title>
+          <v-card-title class=" justify-center " height="100">
+            <v-avatar rounded="lg" size="100"><img src="@/assets/img/logo_copy.svg" /></v-avatar>
+            <span class="text-center text-base font-weight-semibold text-2xl text-uppercase ">Employerella</span>
+          </v-card-title>
 
-      <v-card-text class="text-center text-base pt-2">
-        <h5 class="text-h5 font-weight-semibold mb-1">
-          Adventure starts here 🚀
-        </h5>
-        <p class="mb-0">
-          Make your app management easy and fun!
-        </p>
-      </v-card-text>
+          <v-card-text class="text-center text-base pt-2">
+            <h5 class="text-h5 font-weight-semibold mb-1">
+              Adventure starts here 🚀
+            </h5>
+            <p class="mb-0">
+              Make your app management easy and fun!
+            </p>
+          </v-card-text>
 
-      <v-card-text>
-        <v-form ref="formLogin1" @submit.prevent="login" lazy-validation>
-         
+          <v-card-text>
+            <v-form ref="formLogin1" @submit.prevent="login" lazy-validation>
 
-          <v-col col="6">
-            <v-text-field outlined :label="labels.email" v-model="formLogin.email" type="email"
-                            :error-messages="errors.email" :rules="email_Rules" :disabled="loading"
-                            @input="clearErrors('email')" prepend-inner-icon="mdi-mail" hide-details/>
-            
-          </v-col>
 
-         
-          <v-col col="6">
-            <v-text-field outlined :label="labels.password" v-model="formLogin.password"
-                            :append-icon="passwordHidden ? 'visibility_off' : 'visibility'"
-                            @click:append="() => (passwordHidden = !passwordHidden)"
-                            :type="passwordHidden ? 'password' : 'text'" :error-messages="errors.password"
-                            :disabled="loading" :rules="pwdRules" hint="At least 6 characters"
-                            @input="clearErrors('password')" prepend-inner-icon="mdi-lock" hide-details />
-            
-          </v-col>
-          
-              <v-col col="12" md="6">
-                <v-btn block color="teal accent-3" dark type="submit" :loading="loading"
-                              :disabled="loading">SIGN IN</v-btn>
+              <v-col col="6">
+                <v-text-field outlined :label="labels.email" v-model="formLogin.email" type="email"
+                  :error-messages="errors.email" :rules="email_Rules" :disabled="loading" @input="clearErrors('email')"
+                  prepend-inner-icon="mdi-mail" hide-details />
 
               </v-col>
-         <v-col col="12" class="text-center text-base">
-          
-              <span>Already Don't have an account?</span>
-              <RouterLink
-                class="text-primary ms-2"
-                to="RegisterView"
-              >
-                Sign up instead
-              </RouterLink>
 
 
-         </v-col>
+              <v-col col="6">
+                <v-text-field outlined :label="labels.password" v-model="formLogin.password"
+                  :append-icon="passwordHidden ? 'visibility_off' : 'visibility'"
+                  @click:append="() => (passwordHidden = !passwordHidden)" :type="passwordHidden ? 'password' : 'text'"
+                  :error-messages="errors.password" :disabled="loading" :rules="pwdRules" hint="At least 6 characters"
+                  @input="clearErrors('password')" prepend-inner-icon="mdi-lock" hide-details />
 
-         <v-col
-              cols="12"
-              class="d-flex align-center"
-            >
-              <v-divider />
-              <span class="mx-4">or</span>
-              <v-divider />
-            </v-col >
+              </v-col>
 
-            <v-col cols="12"
-              class=" text-center align-center ">
-              <v-btn 
-              v-for="link in authProviders"
-    :key="link.icon"
-    :icon="link.icon"
-    variant="text"
-    :color="link.color"
-    :href="link.link"
-    
-    class="mx-2"
-    
-              >
-              <v-icon size="30px">{{ link.icon }}</v-icon>
+              <v-col col="12" md="6">
+                <v-btn block color="teal accent-3" dark type="submit" :loading="loading" :disabled="loading">SIGN
+                  IN</v-btn>
 
-              </v-btn>
+              </v-col>
+              <v-col col="12" class="text-center text-base">
 
-            </v-col>
-
-        </v-form>
-      </v-card-text>
-
-      </v-card>
+                <span>Already Don't have an account?</span>
+                <RouterLink class="text-primary ms-2" to="RegisterView">
+                  Sign up instead
+                </RouterLink>
 
 
+              </v-col>
 
+              <v-col cols="12" class="d-flex align-center">
+                <v-divider />
+                <span class="mx-4">or</span>
+                <v-divider />
+              </v-col>
 
+              <v-col cols="12" class=" text-center align-center ">
+                <v-btn v-for="link in authProviders" :key="link.icon" :icon="link.icon" variant="text" :color="link.color"
+                  :href="link.link" class="mx-2">
+                  <v-icon size="30px">{{ link.icon }}</v-icon>
 
- 
-    
-   
-    </div>
+                </v-btn>
+
+              </v-col>
+
+            </v-form>
+          </v-card-text>
+
+        </v-card>
 
 
 
 
 
-           
 
-    
-        </v-main>
 
-       
-        
 
-    </v-app>
-        
-        
-    
+      </div>
+
+
+
+
+
+
+
+
+    </v-main>
+
+
+
+
+  </v-app>
 </template>
 
 <script>
@@ -139,6 +119,7 @@ import axios from 'axios';
 import Form from '@/mixins/form';
 import { validationMixin } from "vuelidate";
 import { required, minLength, email, sameAs } from "vuelidate/lib/validators";
+import Swal from "sweetalert2";
 export default {
   name: "app-register",
   mixins: [validationMixin, Form],
@@ -150,7 +131,7 @@ export default {
   },
   data: () => ({
     snackbar: false,
-      snackbarText: '',
+    snackbarText: '',
     passwordHidden: true,
     error: '',
     step: 1,
@@ -168,32 +149,32 @@ export default {
       email: null,
       password: null,
     },
-    authProviders : [
-  {
-    icon: 'mdi-facebook',
-    color: '#4267b2',
-    colorInDark: '#4267b2',
-    link:'https://twitter.com/_brown21__'
-  },
-  {
-    icon: 'mdi-twitter',
-    color: '#1da1f2',
-    colorInDark: '#1da1f2',
-    link:'https://twitter.com/_brown21__'
-  },
-  {
-    icon: 'mdi-github',
-    color: '#272727',
-    colorInDark: '#fff',
-    link:'https://github.com/brownhm21'
-  },
-  {
-    icon: 'mdi-instagram',
-    color: '#db4437',
-    colorInDark: '#db4437',
-    link:'https://instagram.com/__brown21_'
-  },
-]
+    authProviders: [
+      {
+        icon: 'mdi-facebook',
+        color: '#4267b2',
+        colorInDark: '#4267b2',
+        link: 'https://twitter.com/_brown21__'
+      },
+      {
+        icon: 'mdi-twitter',
+        color: '#1da1f2',
+        colorInDark: '#1da1f2',
+        link: 'https://twitter.com/_brown21__'
+      },
+      {
+        icon: 'mdi-github',
+        color: '#272727',
+        colorInDark: '#fff',
+        link: 'https://github.com/brownhm21'
+      },
+      {
+        icon: 'mdi-instagram',
+        color: '#db4437',
+        colorInDark: '#db4437',
+        link: 'https://instagram.com/__brown21_'
+      },
+    ]
   }),
   props: {
     source: String
@@ -203,10 +184,10 @@ export default {
     Footer,
   },
   methods: {
-  
+
     login() {
       if (this.$refs.formLogin1.validate()) {
-       
+
         this.loading = true;
         console.log('object', this.formLogin);
         axios.post('http://localhost:3000/api/user/login', this.formLogin)
@@ -215,15 +196,25 @@ export default {
             //this.$cookie.set('token',res.data.token);
             /*this.$toast.success('You have been successfully registered!')
             /*this.$emit('success', response.data);*/
-           localStorage.setItem("accessToken",response.data.token)
-           localStorage.setItem("user",JSON.stringify(response.data.user))
+
+            localStorage.setItem("accessToken", response.data.token)
+            localStorage.setItem("user", JSON.stringify(response.data.user))
             this.$router.push("/dashboard");
             this.error = '';
+            Swal.fire('Logged In Successfully!', '', 'success');
+            
           })
           .catch(err => {
             /*this.handleErrors(err.response.data.errors)
             console.log(err.response)
             this.error = err.response.data.error*/
+            Swal.fire({
+              icon: 'error',
+              title: 'Something went wrong!',
+              text: 'Check your E-mail or Password',
+
+
+            })
             this.loading = false;
             this.snackbarText = error;
             this.snackbar = true;
