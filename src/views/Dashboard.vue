@@ -282,7 +282,7 @@ export default {
         },
         logout() {
             localStorage.clear();
-            this.$router.push('/Register');
+            this.$router.push('/LoginView');
         },
         onButtonClick(item) {
             console.log('click on ' + item.no)

@@ -346,5 +346,16 @@ export default {
 <style lang="scss">
 @use "../@core/scss/pages/page-auth.scss";
 </style>
+<style lang="less" scoped>
+ @media (max-width: 2000px){
+  .v-btn--block{
+    display: flex;
+    flex: 1 0 auto;
+    min-width: 100% !important;
+    max-width: none;
+  }
+           
+        }
+</style>
 
  

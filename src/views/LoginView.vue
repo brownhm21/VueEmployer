@@ -1,6 +1,6 @@
 <template>
     <v-app>
-      <navigation :color="primary"  />
+      <!-- <navigation :color="primary"  /> -->
       <login />
       
       <v-main >

@@ -1,6 +1,6 @@
 <template>
     <v-app>
-      <navigation :color="primary"  />
+      <!-- <navigation :color="primary"  /> -->
       <register />
       
       <v-main >
@@ -136,7 +136,7 @@
          -->
       
          
-       <div class="svg-border-waves text-white pt-20">
+       <div class="svg-border-waves text-white pt-15">
         <v-img src="~@/assets/img/borderWavesBlue.svg"/>
       </div>
         </v-main>
@@ -331,6 +331,8 @@
   background-position: center;
   background-size: cover;
 }
+
+
 </style>
 <style lang="scss">
 @use "../@core/scss/pages/page-auth.scss";

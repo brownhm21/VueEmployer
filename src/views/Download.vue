@@ -2,17 +2,14 @@
   <v-app>
     <navigation :color="color" :flat="flat" />
     <LandingContact />
-    <TestimonialsList />
-
-
-    <v-main>
+    <TestimonialsList /> 
+    <DownloadVid />
+    <v-divider></v-divider>
       <SimplifyBlock/>
       
-
-
       
+    <v-main>
       
-
 
         <div class="svg-border-waves text-white pt-15">
         <v-img src="~@/assets/img/borderWavesBlue.svg"/>
@@ -34,6 +31,7 @@
       </v-btn>
     </v-scale-transition>
 
+    
     <foote />
 
 
@@ -47,6 +45,8 @@ import TestimonialsList from '@/components/TestimonialsList'
 import foote from "@/components/Footer.vue";
 import LandingContact from '@/components/LandingContact.vue'
 import LandingHome from '@/components/LandingHome.vue'
+import DownloadVid from '@/components/DownloadVid.vue'
+
 
 
 export default {
@@ -59,6 +59,8 @@ export default {
     LandingContact,
     LandingHome,
     navigation,
+    DownloadVid,
+    
 
    
   },
@@ -110,6 +112,7 @@ export default {
   --neutral-pale-red: hsl(13, 100%, 96%);
   --neutral-btn-shadow: hsla(12, 88%, 70%, 75%);
   --neutral-light-gray: hsl(0, 0%, 98%);
+  --neutral-light-color: hsl(0, 0%, 85%);
 
   /* TYPOGRAPHY */
   --ff-defaul: 'Be Vietnam', sans-serif;
