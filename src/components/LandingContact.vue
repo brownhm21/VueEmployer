@@ -12,6 +12,7 @@
                     </h1>
                     </span> -->
                 <img alt="contact" src="../assets/img/contact.svg"  height="100%" width="100%">
+                
             </div>
 
             
@@ -23,7 +24,7 @@
                             Velit reprehenderit sunt nulla enim aliquip duis tempor est culpa fugiat consequat culpa consectetur Lorem.
                             Reprehenderit dolore culpa irure eiusmod minim occaecat et id minim ullamco.
                         </p>
-                        <a href="#">Contact <i class="fa fa-arrow-right flechaIcon"/></a>
+                        <a href="#">Contact Us <i class="fa fa-arrow-right flechaIcon"/></a>
                         </span>
             </div>
 

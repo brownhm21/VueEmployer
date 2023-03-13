@@ -3,12 +3,19 @@
     <h2>Simplify how your team works today.</h2>
     <div class="btn"><span>Get Started</span></div>
   </div> -->
-  <main>
-    <section class="container">
-    <h2>Simplify how your team works today.</h2>
+  
+    <section class="containerr" >
+    <div class="container">
+      <h2>Simplify how your team works today.</h2>
     <div class="btn"><span>Get Started</span></div>
+   
+
+    </div>
+
+    
   </section>
-  </main>
+  
+  
 </template>
 
 <script>
@@ -18,6 +25,20 @@ export default {
 </script>
 
 <style scoped>
+  @media (min-width: 2000px){
+   .container {
+   max-width: 2000px;
+    
+}
+  }
+
+
+  .containerr {
+    background: url(../assets/img/bg-simplify-section-mobile.svg) no-repeat bottom left 15rem , var(--primary-red);
+    
+    
+  }
+
 
   .container {
     background: url(../assets/img/bg-simplify-section-mobile.svg) no-repeat center left, var(--primary-red);

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="110 441 1920 75" style="enable-background:new 110 441 1920 75;" xml:space="preserve">
+<style type="text/css">
+	.st0{clip-path:url(#SVGID_2_);}
+	.st1{fill:#171B34;}
+	.st2{clip-path:url(#SVGID_4_);}
+	.st3{opacity:0.5;fill:#171B34;enable-background:new    ;}
+	.st4{clip-path:url(#SVGID_6_);}
+	.st5{clip-path:url(#SVGID_8_);}
+</style>
+<title>wave</title>
+<g>
+	<defs>
+		<rect id="SVGID_1_" x="110" y="441" width="1920" height="75"/>
+	</defs>
+	<clipPath id="SVGID_2_">
+		<use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
+	</clipPath>
+	<g class="st0">
+		<path class="st1" d="M2073,441c-138.4,27.8-278.9,43.8-420,48c-274.5,8.2-344.7-34.7-642-28c-230.4,5.2-252.3,32.5-470,36
+			c-179.8,2.9-359.4-12.5-536-46V189h2068"/>
+	</g>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_3_" x="110" y="441" width="1920" height="75"/>
+	</defs>
+	<clipPath id="SVGID_4_">
+		<use xlink:href="#SVGID_3_"  style="overflow:visible;"/>
+	</clipPath>
+	<g class="st2">
+		<path class="st3" d="M-17,506c85.2,3.1,213.6-0.6,362-40c106.6-28.3,120.2-47.7,216-80c379.3-128,735.4-20.2,784,0
+			c43.5,18.1,86.5,40.7,162,64c222.7,68.7,425.9,50,566,22V112H-17"/>
+	</g>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_5_" x="110" y="441" width="1920" height="75"/>
+	</defs>
+	<clipPath id="SVGID_6_">
+		<use xlink:href="#SVGID_5_"  style="overflow:visible;"/>
+	</clipPath>
+	<g class="st4">
+		<path class="st3" d="M2089,406c-116,3.7-287,10.6-494,24c-357.7,23.1-512.6,45.7-680,56c-228.4,14.1-553.2,9.8-960-76V70l2134-16"
+			/>
+	</g>
+</g>
+<g>
+	<defs>
+		<rect id="SVGID_7_" x="110" y="441" width="1920" height="75"/>
+	</defs>
+	<clipPath id="SVGID_8_">
+		<use xlink:href="#SVGID_7_"  style="overflow:visible;"/>
+	</clipPath>
+	<g class="st5">
+		<path class="st3" d="M2108,350c-191.3,76.2-478.4,161.6-828,150c-146.9-4.9-237-24.6-378-45c-240.8-34.9-589.2-65.8-1035-39V32
+			h2241"/>
+	</g>
+</g>
+</svg>

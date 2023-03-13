@@ -1,6 +1,6 @@
 <template>
   <main class="pt-15">
-    <div class="container">
+    <div>
     <h2 class="heading text-center">What they've said</h2>
     <div class="testimonials pt-5" v-show="!desktopView">
       <Testimonial class="testimonial" v-for="testimonial in testimonials" :key="testimonial.id"
@@ -29,7 +29,14 @@
     </div>
     <div class="btn"><span>Get Started</span></div>
     <!-- <v-btn rounded color="primary" class="text-center" ><span>Get Started</span></v-btn> -->
+
+    <div class="svg-border-waves text-white pt-15">
+        <v-img src="~@/assets/img/borderWavesBlue.svg"/>
+      </div>
   </div>
+  <div class="svg-border-waves text-white">
+          <v-img src="@/assets/img/borderWaves.svg" />
+        </div>
  
   </main>
 
@@ -122,7 +129,8 @@ export default {
     z-index: 0;
   }
   .container {
-    padding-inline: 1rem;
+    /* padding-inline: 1rem; */
+    display: flex;
   }
 
   .heading {
@@ -219,7 +227,7 @@ export default {
       margin-inline: 1rem;
       padding: 2rem;
       user-select: none;
-      background-color: var(--neutral-light-blue);
+      background-color: var(--neutral-light-color);
     }
   }
 

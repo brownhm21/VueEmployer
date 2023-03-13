@@ -119,7 +119,7 @@
         email: '',
         user:JSON.parse(localStorage.getItem("user")),
         menus: [
-          { title: "Profile", icon: "mdi-account" ,action: "company"},
+          { title: "Profile", icon: "mdi-account" ,action: "profileEdit"},
           { title: "Change Password", icon: "mdi-key" ,action: "test"},
           { title: "Setting", icon: "mdi-cog" ,action: "test"},
           { title: "Logout", icon: "mdi-logout" ,action: "logout"},
@@ -174,11 +174,11 @@
 
       
         localStorage.clear();
-        this.$router.push('/Register');
+        this.$router.push('/LoginView');
         alert('LOGOUT!!')
-      }else if (action === "company") {
+      }else if (action === "profileEdit") {
       
-        this.$router.push('/CompanyForm');
+        this.$router.push('/ProfileEdit');
         alert('CompanyForm!!')
       }
     }
