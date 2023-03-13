@@ -1,6 +1,11 @@
 <template>
     <v-app id="inspire">
         <v-main>
+            <div class="pt-15 pl-15  text" >
+              <span>
+                <a href="/"><i class="fa fa-arrow-left flechaIcon"/>  Home</a>
+              </span>
+            </div>
             <div class="d-flex align-center justify-center pa-4 pt-20 ">
       <v-card class="auth-card pa-4 pt-7" width="500"  elevation="15">
       <!-- <v-card-item>
@@ -347,6 +352,39 @@ export default {
 @use "../@core/scss/pages/page-auth.scss";
 </style>
 <style lang="less" scoped>
+.text {
+       
+        
+        h1, a {
+            font-family: 'Syne';
+            font-size: 25px;
+            line-height: 26px;
+            color: rgb(10, 117, 131);
+            text-decoration: none;
+        }
+       
+        p {
+            font-family: 'Open Sans';
+            font-size: 25px;
+            line-height: 25px;
+            color: rgba(0, 0, 0, 0.4);
+            margin-bottom: 54px;
+        }
+        @media (min-width: 1367px){
+            width: 570px;
+        }
+        @media (max-width: 1100px){
+            width: 570px;
+        }
+        @media (max-width: 992px){
+            width: 570px;
+        }
+        @media (max-width: 600px){
+            width: 100%;
+            padding: 0 0px;
+        }
+        
+    }
  @media (max-width: 2000px){
   .v-btn--block{
     display: flex;
