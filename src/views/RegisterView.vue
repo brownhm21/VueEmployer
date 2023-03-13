@@ -1,6 +1,9 @@
 <template>
     <v-app>
       <!-- <navigation :color="primary"  /> -->
+
+      
+      
       <register />
       
       <v-main >

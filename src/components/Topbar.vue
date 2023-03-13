@@ -175,7 +175,7 @@
       
         localStorage.clear();
         this.$router.push('/LoginView');
-        alert('LOGOUT!!')
+        
       }else if (action === "profileEdit") {
       
         this.$router.push('/ProfileEdit');

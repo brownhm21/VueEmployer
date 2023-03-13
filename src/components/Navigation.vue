@@ -52,7 +52,7 @@
           v-if="isXs"
         />
         <div v-else>
-          <v-btn text @click="$vuetify.goTo('#hero')">
+          <v-btn text @click="$router.push('/')">
             <span class="mr-2">Home</span>
           </v-btn>
           <v-btn text @click="$router.push('/about')">
@@ -61,10 +61,10 @@
           <v-btn text @click="$router.push('/download')">
             <span class="mr-2">Download</span>
           </v-btn>
-          <v-btn text @click="$router.push('/RegisterView')">
+          <!-- <v-btn text @click="$router.push('/')">
             <span class="mr-2">Prices</span>
-          </v-btn>
-          <v-btn text @click="$router.push('/Register')">
+          </v-btn> -->
+          <v-btn text @click="$router.push('/RegisterView')">
             <span class="mr-2">Create Account</span>
           </v-btn>
           <v-btn rounded outlined text @click="$vuetify.goTo('#contact')">
@@ -95,7 +95,7 @@
         {icon:"mdi-information-outline", title:"About", link:"#features" , action:"about"},
         {icon:"mdi-download-box-outline", title:"Download", link:"#download",  action:"download"},
         {icon:"mdi-card-account-details-outline", title:"Register", link:"register",  action:"register"},
-        {icon:"mdi-currency-usd", title:"Pricing", link:"#pricing", action:"pricing"},
+       
         {icon:"mdi-email-outline", title:"Contact", link:"#contact", action:"contact"},
       ],
     }),
@@ -109,11 +109,11 @@
       },
       menuActionClick(action) {
       if (action === "hero") {
-        this.$vuetify.goTo('#hero')
+        this.$router.push('/');
         
       } else if (action === "about") {
        
-        this.$vuetify.goTo('#about')
+        this.$router.push('/about');
         
       }else if (action === "download") {
       
@@ -121,7 +121,7 @@
       }else if (action === "register") {
         console.log('push employer')
        
-       this.$router.push('Register');
+       this.$router.push('RegisterView');
        
      }else if (action === "pricing") {
         this.$vuetify.goTo('#pricing')
